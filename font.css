@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'MTCORSVA';
+	src: url('./MTCORSVA.eot');
+	src: local('MTCORSVA'), url('./MTCORSVA.woff') format('woff'), url('./MTCORSVA.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_6771">Text with this font applied</p> */
+.fontsforweb_fontid_6771 {
+	font-family: 'MTCORSVA' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

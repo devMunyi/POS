@@ -1,0 +1,143 @@
+body {
+	background: #DDD;
+	font-family: arial;
+	font-size: 13px;
+	font-weight: bold;
+}
+@font-face
+{
+font-family: myFirstFont;
+src: url(MTCORSVA.woff);
+}
+#header{
+	font-family:myFirstFont;
+	font-weight: bold;
+	font-size: 25px;
+}
+#loginform {
+	margin: 150px auto;
+	width: 280px;
+}
+#loginform span {
+	width: 100px;
+	display: inline-block;
+}
+#ac span {
+	width: 95px;
+	display: inline-block;
+	font-size: 12px;
+	margin-bottom: 12px;
+	text-align: right;
+	padding-right: 10px;
+}
+select {
+	border: 1px solid #999;
+	background: #EEEEEE;
+	padding: 5px 10px;
+	box-shadow:0 1px 2px #ddd;
+    -moz-box-shadow:0 1px 2px #ddd;
+    -webkit-box-shadow:0 1px 2px #ddd;
+}
+input {
+	border: 1px solid #999;
+	background: #EEEEEE;
+	padding: 5px 10px;
+	box-shadow:0 1px 2px #ddd;
+    -moz-box-shadow:0 1px 2px #ddd;
+    -webkit-box-shadow:0 1px 2px #ddd;
+}
+#btn {
+	background: grey;
+	border: 1px solid #999;
+	cursor: pointer;
+	font-size: 13px;
+    font-weight: bold;
+}
+#maintable {
+	margin: 50px auto;
+	width: 800px;
+}
+#filter {
+	width: 70%;
+	float:left;
+}
+#addd {
+	border: 1px solid #999;
+	background: #EEEEEE;
+	padding: 5px 10px;
+	box-shadow:0 1px 2px #ddd;
+    -moz-box-shadow:0 1px 2px #ddd;
+    -webkit-box-shadow:0 1px 2px #ddd;
+	width: 25%;
+	display: inline-block;
+	float:right;
+	text-align: center;
+	text-decoration: none;
+	color: #000000;
+}
+#cccc {
+	border: 1px solid #999;
+	background: #EEEEEE;
+	padding: 5px 10px;
+	box-shadow:0 1px 2px #ddd;
+    -moz-box-shadow:0 1px 2px #ddd;
+    -webkit-box-shadow:0 1px 2px #ddd;
+	width: 25%;
+	display: inline-block;
+	float:left;
+	text-align: center;
+	text-decoration: none;
+	color: #000000;
+}
+.clearfix {
+	clear: both;
+}
+#resultTable {
+    border-collapse: separate;
+	background-color: #FFFFFF;
+    border-spacing: 0;
+    max-width: 100%;
+}
+#resultTable {
+	color: #666666;
+    text-shadow: 0 1px 0 #FFFFFF;
+	width: 100%;
+	border: 1px solid #999999;
+	box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
+	margin-top: 13px;
+}
+#resultTable thead tr th {
+    background: none repeat scroll 0 0 #EEEEEE;
+    color: #222222;
+    padding: 10px 14px;
+    text-align: left;
+	border-top: 0 none;
+	font-size: 12px;
+}
+
+#resultTable tbody tr td{
+    background-color: #FFFFFF;
+	font-size: 11px;
+    text-align: left;
+	padding: 10px 14px;
+	border-top: 1px solid #999999;
+}
+#mainmain {
+	margin: 50px auto;
+	text-align: center;
+	width: 660px;
+}
+#mainmain a {
+	text-decoration: none;
+	padding: 20px 10px;
+	border: 1px solid #999;
+	background: #EEEEEE;
+	box-shadow:0 1px 2px #ddd;
+    -moz-box-shadow:0 1px 2px #ddd;
+    -webkit-box-shadow:0 1px 2px #ddd;
+	color: #222222;
+	display: inline-block;
+	width: 185px;
+	text-align: center;
+	margin-bottom: 5px;
+}
