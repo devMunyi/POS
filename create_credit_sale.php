@@ -70,6 +70,11 @@
           $active_cust = $pdo->prepare("SELECT * FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
           $active_cust->execute();
 
+          $credit_limit_ = $pdo->prepare("SELECT sum(sale_profit) as credit_limit FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
+          $credit_limit_->execute();
+          $row=$credit_limit_->fetch(PDO::FETCH_OBJ);
+          $credit_limit = $row->credit_limit;
+
           if($active_cust->rowCount() < 1 ){
             echo '<script type="text/javascript">
               jQuery(function validation(){
@@ -78,7 +83,15 @@
                   });
               });
               </script>';
-          }elseif($select->rowCount() > 0){
+          }elseif($credit_balance > $credit_limit){
+            echo '<script type="text/javascript">
+              jQuery(function validation(){
+              swal("Warning", "The customer credit limit is ksh '.$credit_limit.'", "warning", {
+              button: "Back",
+                  });
+              });
+              </script>';
+            }elseif($select->rowCount() > 0){
             echo '<script type="text/javascript">
               jQuery(function validation(){
               swal("Warning", "The customer has an existing credit", "warning", {
@@ -86,7 +99,7 @@
                   });
               });
               </script>';
-            }elseif (datediff($date, $due_date < 0)) {
+            }elseif (datediff($date, $due_date) < 0) {
               echo '<script type="text/javascript">
               jQuery(function validation(){
               swal("Warning", "Due date must be a future date/time", "warning", {

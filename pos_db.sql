@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2021 at 09:46 AM
+-- Generation Time: Oct 05, 2021 at 01:10 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -73,7 +73,12 @@ INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `time_ord
 (5, 'Sam', '2021-10-02', '19:34', '90.00', 20, '0.00', '0.00', '0.00', '2021-10-06', 'Credit', '0112553167', 'Cleared'),
 (6, 'Sam', '2021-10-02', '20:20', '190.00', 10, '200.00', '10.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
 (7, 'Sam', '2021-10-02', '20:21', '500.00', 162, '500.00', '0.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
-(8, 'Sam', '2021-10-03', '14:53', '205.00', 45, '250.00', '45.00', '0.00', '0000-00-00', 'Cash', '', 'Paid');
+(8, 'Sam', '2021-10-03', '14:53', '205.00', 45, '250.00', '45.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
+(9, 'Sam', '2021-10-04', '14:10', '145.00', 45, '150.00', '5.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
+(10, 'Sam', '2021-10-04', '14:11', '120.00', 40, '200.00', '80.00', '0.00', '0000-00-00', 'Cash', '0705609184', 'Paid'),
+(11, 'Sam', '2021-10-04', '14:12', '25.00', 5, '30.00', '5.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
+(12, 'Sam', '2021-10-04', '14:27', '100.00', 20, '0.00', '0.00', '0.00', '2021-10-05', 'Credit', '0705609184', 'Cleared'),
+(13, 'Sam', '2021-10-04', '14:29', '80.00', 20, '50.00', '0.00', '30.00', '2021-10-04', 'Credit', '0705609184', 'Unpaid');
 
 -- --------------------------------------------------------
 
@@ -107,7 +112,13 @@ INSERT INTO `tbl_invoice_detail` (`id`, `invoice_id`, `product_id`, `product_cod
 (9, 7, 20, '#sugar', 'Mumias Sugar', 4, 'Kg', 120, 480, 160, '2021-10-02'),
 (10, 7, 17, '#edent', 'Eden Tea', 1, 'g', 20, 20, 2, '2021-10-02'),
 (11, 8, 2, '#beans', 'Beans', 2, 'Kg', 90, 180, 40, '2021-10-03'),
-(12, 8, 18, '#aeria', 'Aerial Washing Powder', 1, 'g', 25, 25, 5, '2021-10-03');
+(12, 8, 18, '#aeria', 'Aerial Washing Powder', 1, 'g', 25, 25, 5, '2021-10-03'),
+(13, 9, 18, '#aeria', 'Aerial Washing Powder', 1, 'g', 25, 25, 5, '2021-10-04'),
+(14, 9, 20, '#sugar', 'Mumias Sugar', 1, 'Kg', 120, 120, 40, '2021-10-04'),
+(15, 10, 20, '#sugar', 'Mumias Sugar', 1, 'Kg', 120, 120, 40, '2021-10-04'),
+(16, 11, 18, '#aeria', 'Aerial Washing Powder', 1, 'g', 25, 25, 5, '2021-10-04'),
+(17, 12, 22, '#rice', 'Rice', 1, 'Kg', 100, 100, 20, '2021-10-04'),
+(18, 13, 19, '#cooki', 'Cooking Fat', 2, 'Kg', 40, 80, 20, '2021-10-04');
 
 -- --------------------------------------------------------
 
@@ -135,15 +146,15 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_id`, `product_code`, `product_name`, `product_category`, `purchase_price`, `sell_price`, `product_profit`, `stock`, `min_stock`, `product_unit`, `description`, `img`) VALUES
-(2, '#beans', 'Beans', 'Cereals', 70, 90, 20, 15, 5, 'Kg', '', '61582325b31df.jfif'),
+(2, '#beans', 'Beans', 'Cereals', 70, 90, 20, 16, 5, 'Kg', '', '61582325b31df.jfif'),
 (12, '#ndeng', 'Ndegu', 'Cereals', 90, 95, 5, 17, 7, 'Kg', 'Green Grams', '61582379a21fd.jpg'),
 (15, '#wheat', 'Wheat Floor', 'Cereals', 60, 65, 5, 19, 5, 'Kg', '', '615823e384c3f.jfif'),
 (17, '#edent', 'Eden Tea', 'Cereals', 18, 20, 2, 11, 5, 'g', '', '615824b786b86.jfif'),
-(18, '#aeria', 'Aerial Washing Powder', 'Cereals', 20, 25, 5, 19, 10, 'g', '', '6158244d16ec0.jpg'),
-(19, '#cooki', 'Cooking Fat', 'Retail', 30, 40, 10, 17, 10, 'Kg', '', '61582827447c0.jfif'),
-(20, '#sugar', 'Mumias Sugar', 'Cereals', 80, 120, 40, 12, 5, 'Kg', 'White Mumias Sugar', '61582853d28ec.jpg'),
+(18, '#aeria', 'Aerial Washing Powder', 'Cereals', 20, 25, 5, 17, 10, 'g', '', '6158244d16ec0.jpg'),
+(19, '#cooki', 'Cooking Fat', 'Retail', 30, 40, 10, 15, 10, 'Kg', '', '61582827447c0.jfif'),
+(20, '#sugar', 'Mumias Sugar', 'Cereals', 80, 120, 40, 10, 5, 'Kg', 'White Mumias Sugar', '61582853d28ec.jpg'),
 (21, '#meneg', 'Menengai Bar soap', 'Retail', 23, 24, 1, 20, 5, 'n/a', '', '6158289363ac9.jpg'),
-(22, '#rice', 'Rice', 'Cereals', 80, 100, 20, 10, 5, 'Kg', '', '615828dd5db19.jfif'),
+(22, '#rice', 'Rice', 'Cereals', 80, 100, 20, 9, 5, 'Kg', '', '615828dd5db19.jfif'),
 (23, 'test', 'test', 'Cereals', 50, 60, 0, 10, 5, 'Kg', '', '');
 
 -- --------------------------------------------------------
@@ -170,7 +181,8 @@ CREATE TABLE `tbl_repayments` (
 
 INSERT INTO `tbl_repayments` (`id`, `cashier_name`, `invoice_id`, `creditor_no`, `amount_paid`, `date_paid`, `credit_balance`, `due_date`, `status`) VALUES
 (1, 'Sam', 1, '0112553167', '100.00', '2021-10-02', '0.00', '2021-09-09', 'Paid'),
-(2, 'Sam', 5, '0112553167', '100.00', '2021-10-02', '0.00', '2021-10-06', 'Paid');
+(2, 'Sam', 5, '0112553167', '100.00', '2021-10-02', '0.00', '2021-10-06', 'Paid'),
+(3, 'Sam', 12, '0705609184', '100.00', '2021-10-04', '0.00', '2021-10-05', 'Paid');
 
 -- --------------------------------------------------------
 
@@ -274,19 +286,19 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_detail`
 --
 ALTER TABLE `tbl_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
@@ -298,19 +310,19 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `tbl_repayments`
 --
 ALTER TABLE `tbl_repayments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
 --
 ALTER TABLE `tbl_unit`
-  MODIFY `unit_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `unit_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

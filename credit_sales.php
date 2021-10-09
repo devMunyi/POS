@@ -33,7 +33,7 @@
 
 <html>
 <head>
-<meta http-equiv="refresh" content="60">
+<meta http-equiv="" content="">
 </head>
 </html>
 
@@ -50,7 +50,7 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Credit Sale List</h3>
-                <a href="create_credit_sale.php" class="btn btn-success btn-sm pull-right">Add Credit Sale</a>
+                <a href="create_credit_sale" class="btn btn-success btn-sm pull-right">Add Credit Sale</a>
             </div>
             <div class="box-body">
                 <div style="overflow-x:auto;">

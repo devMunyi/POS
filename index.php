@@ -107,7 +107,7 @@ if(isset($_POST['btn_login'])){
           echo'<script type="text/javascript">
               jQuery(function validation(){
               swal("Login Fail", "Username or Password is Wrong!", "error", {
-              button: "Continue",
+              button: "Back",
                 });
               });
           </script>';

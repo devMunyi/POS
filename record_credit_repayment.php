@@ -86,7 +86,7 @@
           }else{
             echo '<script type="text/javascript">
               jQuery(function validation(){
-              swal("Warning", "Repay amount must be greater or equal to your credit balance", "warning", {
+              swal("Warning", "The customer credit balance is ksh '.$credit_bal.'", "warning", {
               button: "Back",
                   });
               });

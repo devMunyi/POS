@@ -133,7 +133,7 @@
                           <?php
                           $no = 1;
                           $select = $pdo->prepare("SELECT product_code,product_name,price,product_unit,sum(qty) as q, sum(qty*price) as total, sum(item_profit) as item_profit FROM
-                          tbl_invoice_detail WHERE order_date != '$date' GROUP BY product_id ORDER BY sum(qty) DESC LIMIT 30");
+                          tbl_invoice_detail GROUP BY product_id ORDER BY sum(qty) DESC LIMIT 30");
                           $select->execute();
                           while($row=$select->fetch(PDO::FETCH_OBJ)){
                           ?>

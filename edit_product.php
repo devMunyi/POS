@@ -2,28 +2,34 @@
     include_once'misc/plugin.php';
     include_once'db/connect_db.php';
     session_start();
-    if($_SESSION['role']!=="Admin"){
-    header('location:index');
+    if($_SESSION['username']==""){
+     header('location:index');
+   }else{
+     if($_SESSION['role']=="Admin"){
+       include_once'inc/header_all.php';
+     }else{
+         include_once'inc/header_all_operator.php';
+     }
     }
 
-    if($id=$_GET['id']){
-    $select = $pdo->prepare("SELECT * FROM tbl_product WHERE product_id=$id");
-    $select->execute();
-    $row = $select->fetch(PDO::FETCH_ASSOC);
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $select = $pdo->prepare("SELECT * FROM tbl_product WHERE product_id=$id");
+        $select->execute();
+        $row = $select->fetch(PDO::FETCH_ASSOC);
 
-    $productCode_db = $row['product_code'];
-    $productName_db = $row['product_name'];
-    $category_db = $row['product_category'];
-    $purchase_db = $row['purchase_price'];
-    $sell_db = $row['sell_price'];
-    $stock_db = $row['stock'];
-    $min_stock_db = $row['min_stock'];
-    $unit_db = $row['product_unit'];
-    $desc_db = $row['description'];
-    $product_img = $row['img'];
-
+        $productCode_db = $row['product_code'];
+        $productName_db = $row['product_name'];
+        $category_db = $row['product_category'];
+        $purchase_db = $row['purchase_price'];
+        $sell_db = $row['sell_price'];
+        $stock_db = $row['stock'];
+        $min_stock_db = $row['min_stock'];
+        $unit_db = $row['product_unit'];
+        $desc_db = $row['description'];
+        $product_img = $row['img'];
     }else{
-    header('location:product');
+        header('location:product');
     }
 
     if(isset($_POST['update_product'])){
@@ -117,7 +123,8 @@
                 $update->bindParam('img',  $product_img);
 
                 if($update->execute()){
-                    header('location:view_product?id='.urlencode($id));
+                    echo '<script> location.replace("view_product?id='.$id.'"); </script>';
+                    //header("location:view_product?id=$id");
                 }else{
                     echo '<script type="text/javascript">
                         jQuery(function validation(){
@@ -130,7 +137,6 @@
             }
     }
 
-    include_once'inc/header_all.php';
 ?>
 
   <!-- Content Wrapper. Contains page content -->

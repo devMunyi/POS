@@ -62,7 +62,7 @@ if(isset($_POST['submit'])){
                   <div class="box-body">
                     <div class="form-group">
                       <label for="category">Unit Name</label>
-                      <input type="text" class="form-control" name="unit" placeholder="Enter unit name">
+                      <input type="text" class="form-control" name="unit" placeholder="Enter unit name" required>
                     </div>
                   </div><!-- /.box-body -->
                   <div class="box-footer">

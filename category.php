@@ -54,7 +54,7 @@
                   <div class="box-body">
                     <div class="form-group">
                       <label for="category">Category Name</label>
-                      <input type="text" class="form-control" name="category" placeholder="Enter Category">
+                      <input type="text" class="form-control" name="category" placeholder="Enter Category" required>
                     </div>
                   </div><!-- /.box-body -->
                   <div class="box-footer">

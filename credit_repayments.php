@@ -9,40 +9,42 @@
         if($_SESSION['role']=="Admin"){
           include_once'inc/header_all.php';
         }else{
-            include_once'inc/header_all_operator.php';
+            include_once ('inc/header_all_operator.php');
         }
     }
 
-    error_reporting(0);
+    //error_reporting(0);
 
-    $id = $_GET['id'];
-
-    $delete_query = "DELETE tbl_invoice , tbl_invoice_detail FROM tbl_invoice INNER JOIN tbl_invoice_detail ON tbl_invoice.invoice_id =
-    tbl_invoice_detail.invoice_id WHERE tbl_invoice.invoice_id=$id";
-    $delete = $pdo->prepare($delete_query);
-    if($delete->execute()){
-        echo'<script type="text/javascript">
-            jQuery(function validation(){
-            swal("Info", "Transaction Has been deleted", "info", {
-            button: "Continue",
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        
+        $delete_query = "DELETE tbl_invoice , tbl_invoice_detail FROM tbl_invoice INNER JOIN tbl_invoice_detail ON tbl_invoice.invoice_id =
+        tbl_invoice_detail.invoice_id WHERE tbl_invoice.invoice_id=$id";
+        $delete = $pdo->prepare($delete_query);
+        if($delete->execute()){
+            echo'<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Info", "Transaction Has been deleted", "info", {
+                button: "Continue",
+                    });
                 });
-            });
-            </script>';
+                </script>';
+        }
+    
     }
 ?>
-
 <html>
 <head>
 <meta http-equiv="refresh" content="60">
 </head>
 </html>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Transaction
+      </h1>
     </section>
 
     <!-- Main content -->
@@ -57,13 +59,13 @@
                     <table class="table table-striped" id="myOrder">
                         <thead>
                             <tr>
-                                <th style="width:20px;">No</th>
-                                <th style="width:100px;">Creditor Number</th>
-                                <th style="width:100px;">Amount</th>
-                                <th style="width:100px;">Paid Date</th>
-                                <th style="width:100px">Credit Balance</th>
-                                <th style="width: 100px">Due Date</th>
-                                <th style="width:50px;">Action</th>
+                                <th style="width: 20px;">No</th>
+                                <th style="width: 100px;">Creditor Number</th>
+                                <th style="width: 100px;">Amount</th>
+                                <th style="width: 100px;">Paid Date</th>
+                                <th style="width: 100px;">Credit Balance</th>
+                                <th style="width: 100px;">Due Date</th>
+                                <th style="width: 100px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,7 +86,7 @@
                                     <?php if($_SESSION['role']=="Admin"){ ?>
                                     <a href="credit_repayments?id=<?php echo $row->invoice_id; ?>" onclick="return confirm('Delete Transaction ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     <?php } ?>
-                                    <a href="misc/nota?id=<?php echo $row->invoice_id; ?>" target="_blank" class="btn btn-info btn-sm"><i class="fa fa-print"></i></a>
+                                    
                                 </td>
                                 </tr>
                             <?php

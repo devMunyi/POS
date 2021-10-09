@@ -148,6 +148,7 @@
                 <ul class="treeview-menu">
                     <li><a href="sale"class=""><i class="fa fa-circle-o"></i> All Sales</a></li>
                     <li><a href="cash_sales" class=""><i class="fa fa-circle-o"></i> Cash Sales</a></li>
+                    <li><a href="credit_sales" class=""><i class="fa fa-circle-o"></i> Credit Sales</a></li>
                     <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
                     <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
                 </ul>

@@ -33,7 +33,7 @@
 
 <html>
 <head>
-<meta http-equiv="refresh" content="60">
+<meta http-equiv="" content="">
 </head>
 </html>
 
@@ -43,6 +43,7 @@
     <section class="content-header">
       <h1>
         Defaulters
+      </h1>
     </section>
 
     <!-- Main content -->
@@ -50,7 +51,6 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Credit Defaulters List</h3>
-                <a href="create_credit_sale.php" class="btn btn-success btn-sm pull-right">Add Credit Sale</a>
             </div>
             <div class="box-body">
                 <div style="overflow-x:auto;">
@@ -65,7 +65,7 @@
                                 <th style="width:100px">Credit Balance</th>
                                 <th style="width:100px">Status</th>
                                 <th style="width: 100px">Due Date</th>
-                                <th style="width:50px;">Action</th>
+                                <th style="width: 100px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,7 +88,6 @@
                                     <?php if($_SESSION['role']=="Admin"){ ?>
                                     <a href="credit_defaulters?id=<?php echo $row->invoice_id; ?>" onclick="return confirm('Delete Transaction ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     <?php } ?>
-                                    <a href="misc/nota?id=<?php echo $row->invoice_id; ?>" target="_blank" class="btn btn-info btn-sm"><i class="fa fa-print"></i></a>
                                 </td>
                                 </tr>
                             <?php

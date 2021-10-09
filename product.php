@@ -84,11 +84,11 @@
                                     <?php if($_SESSION['role']=="Admin"){ ?>
                                     <a href="product?id=<?php echo $row->product_id; ?>"
                                     class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    <a href="edit_product?id=<?php echo $row->product_id; ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                                     <?php
                                     }
                                     ?>
                                     <a href="view_product?id=<?php echo $row->product_id; ?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
+                                    <a href="edit_product?id=<?php echo $row->product_id; ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                                 </td>
                                 </tr>
                             <?php
