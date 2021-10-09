@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2021 at 01:10 PM
+-- Generation Time: Oct 09, 2021 at 09:16 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -78,7 +78,8 @@ INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `time_ord
 (10, 'Sam', '2021-10-04', '14:11', '120.00', 40, '200.00', '80.00', '0.00', '0000-00-00', 'Cash', '0705609184', 'Paid'),
 (11, 'Sam', '2021-10-04', '14:12', '25.00', 5, '30.00', '5.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
 (12, 'Sam', '2021-10-04', '14:27', '100.00', 20, '0.00', '0.00', '0.00', '2021-10-05', 'Credit', '0705609184', 'Cleared'),
-(13, 'Sam', '2021-10-04', '14:29', '80.00', 20, '50.00', '0.00', '30.00', '2021-10-04', 'Credit', '0705609184', 'Unpaid');
+(13, 'Sam', '2021-10-04', '14:29', '80.00', 20, '50.00', '0.00', '30.00', '2021-10-04', 'Credit', '0705609184', 'Unpaid'),
+(14, 'Sam', '2021-10-09', '20:31', '65.00', 5, '50.00', '0.00', '0.00', '2021-10-12', 'Credit', '0112553167', 'Cleared');
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,8 @@ INSERT INTO `tbl_invoice_detail` (`id`, `invoice_id`, `product_id`, `product_cod
 (15, 10, 20, '#sugar', 'Mumias Sugar', 1, 'Kg', 120, 120, 40, '2021-10-04'),
 (16, 11, 18, '#aeria', 'Aerial Washing Powder', 1, 'g', 25, 25, 5, '2021-10-04'),
 (17, 12, 22, '#rice', 'Rice', 1, 'Kg', 100, 100, 20, '2021-10-04'),
-(18, 13, 19, '#cooki', 'Cooking Fat', 2, 'Kg', 40, 80, 20, '2021-10-04');
+(18, 13, 19, '#cooki', 'Cooking Fat', 2, 'Kg', 40, 80, 20, '2021-10-04'),
+(19, 14, 15, '#wheat', 'Wheat Floor', 1, 'Kg', 65, 65, 5, '2021-10-09');
 
 -- --------------------------------------------------------
 
@@ -146,9 +148,9 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_id`, `product_code`, `product_name`, `product_category`, `purchase_price`, `sell_price`, `product_profit`, `stock`, `min_stock`, `product_unit`, `description`, `img`) VALUES
-(2, '#beans', 'Beans', 'Cereals', 70, 90, 20, 16, 5, 'Kg', '', '61582325b31df.jfif'),
+(2, '#beans', 'Beans', 'Cereals', 75, 90, 20, 16, 5, 'Kg', '', '61582325b31df.jfif'),
 (12, '#ndeng', 'Ndegu', 'Cereals', 90, 95, 5, 17, 7, 'Kg', 'Green Grams', '61582379a21fd.jpg'),
-(15, '#wheat', 'Wheat Floor', 'Cereals', 60, 65, 5, 19, 5, 'Kg', '', '615823e384c3f.jfif'),
+(15, '#wheat', 'Wheat Floor', 'Cereals', 60, 65, 5, 18, 5, 'Kg', '', '615823e384c3f.jfif'),
 (17, '#edent', 'Eden Tea', 'Cereals', 18, 20, 2, 11, 5, 'g', '', '615824b786b86.jfif'),
 (18, '#aeria', 'Aerial Washing Powder', 'Cereals', 20, 25, 5, 17, 10, 'g', '', '6158244d16ec0.jpg'),
 (19, '#cooki', 'Cooking Fat', 'Retail', 30, 40, 10, 15, 10, 'Kg', '', '61582827447c0.jfif'),
@@ -180,9 +182,9 @@ CREATE TABLE `tbl_repayments` (
 --
 
 INSERT INTO `tbl_repayments` (`id`, `cashier_name`, `invoice_id`, `creditor_no`, `amount_paid`, `date_paid`, `credit_balance`, `due_date`, `status`) VALUES
-(1, 'Sam', 1, '0112553167', '100.00', '2021-10-02', '0.00', '2021-09-09', 'Paid'),
 (2, 'Sam', 5, '0112553167', '100.00', '2021-10-02', '0.00', '2021-10-06', 'Paid'),
-(3, 'Sam', 12, '0705609184', '100.00', '2021-10-04', '0.00', '2021-10-05', 'Paid');
+(3, 'Sam', 12, '0705609184', '100.00', '2021-10-04', '0.00', '2021-10-05', 'Paid'),
+(4, 'Sam', 14, '0112553167', '15.00', '2021-10-09', '0.00', '2021-10-12', 'Paid');
 
 -- --------------------------------------------------------
 
@@ -263,7 +265,8 @@ ALTER TABLE `tbl_product`
 -- Indexes for table `tbl_repayments`
 --
 ALTER TABLE `tbl_repayments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk1` (`invoice_id`);
 
 --
 -- Indexes for table `tbl_unit`
@@ -292,13 +295,13 @@ ALTER TABLE `tbl_category`
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_detail`
 --
 ALTER TABLE `tbl_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
@@ -310,7 +313,7 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `tbl_repayments`
 --
 ALTER TABLE `tbl_repayments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_unit`
@@ -323,6 +326,16 @@ ALTER TABLE `tbl_unit`
 --
 ALTER TABLE `tbl_user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_repayments`
+--
+ALTER TABLE `tbl_repayments`
+  ADD CONSTRAINT `fk1` FOREIGN KEY (`invoice_id`) REFERENCES `tbl_invoice` (`invoice_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
