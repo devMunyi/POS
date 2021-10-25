@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set("Africa/Nairobi");
-
-$hostname = 'localhost'; 
+/*
+$hostname = 'us-cdbr-east-04.cleardb.com'; 
 $dbname   = 'pos_db'; // Your database name.
-$username = 'root';             // Your database username.
-$password = '';
+$username = 'bec7eb35ba2d88';             // Your database username.
+$password = '9a4c03d0';
 
 // Your databas 'r.].
 //\.
@@ -14,6 +14,22 @@ $password = '';
 //\'/\/e password. If your database has no password, leave it empty.
 // Let's connect to host
 $con=mysqli_connect($hostname,$username,$password,$dbname);
+
+*/
+
+
+//Get Heroku ClearDB connection information
+$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$cleardb_server = $cleardb_url["host"];
+$cleardb_username = $cleardb_url["user"];
+$cleardb_password = $cleardb_url["pass"];
+$cleardb_db = substr($cleardb_url["path"],1);
+$active_group = 'default';
+$query_builder = TRUE;
+// Connect to DB
+$conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+
+
 if(mysqli_connect_errno())
 {
     printf('Error Establishing a database connection');
