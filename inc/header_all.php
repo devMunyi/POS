@@ -33,6 +33,17 @@
 
   <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
 
+   <!--Trial-->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components2/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components2/Ionicons/css/ionicons.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="bower_components2/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components2/jvectormap/jquery-jvectormap.css">
+  <!--End of trial-->
+
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -52,7 +63,6 @@
 
   <!-- chart Js -->
   <script src="chartjs/dist/Chart.min.js"></script>
-
 </head>
 
 <body class="hold-transition skin-green sidebar-mini">
@@ -151,3 +161,4 @@
       <!-- /.sidebar -->
     </aside>
 
+    

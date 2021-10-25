@@ -33,7 +33,20 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 
-  <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
+  <!--Trial-->
+  <link rel="stylesheet" href="bower_components2/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components2/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components2/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="bower_components2/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components2/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="bower_components2/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="bower_components2/bootstrap-daterangepicker/daterangepicker.css">
+  <!--End of trial-->
 
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -55,6 +68,7 @@
   <!-- chart Js -->
   <script src="chartjs/dist/Chart.min.js"></script>
 
+  </div>
 </head>
 
 <body class="hold-transition skin-green sidebar-mini">
