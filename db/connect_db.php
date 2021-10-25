@@ -36,8 +36,9 @@ if(mysqli_connect_errno())
     exit();
 }
 
+
 try{
-    $pdo = new PDO('mysql:host=localhost;dbname=pos_db','root','');
+    $pdo = new PDO("mysql:host=$cleardb_server;dbname=$cleardb_db","$cleardb_username","$cleardb_password");
     //echo 'Connection Successfull';
 }catch(PDOException $error){
     echo $error->getmessage();
