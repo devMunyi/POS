@@ -1,8 +1,3 @@
-token= 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
-.git
-
-mysql://b1333d88e09d4a:d72bc400@us-cdbr-east-04.cleardb.com/heroku_722b0e07cb1bac3?reconnect=true
-
-
-
-//html+='<td><select class="form-control productid" name="productid[]" style="width:100px;" required><option value="">--Product Name</option><?php //echo fill_product($pdo) ?></select></td>';
+.env
+db
+.github
