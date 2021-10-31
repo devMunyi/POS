@@ -69,7 +69,7 @@
                   ?>
 
               <div class="row">
-                <div class="col-md-offset-1 col-xs-3">
+                <div class="col-md-offset-1 col-md-3">
                   <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-shopping-cart"></i></span>
 
@@ -83,13 +83,13 @@
                 </div>
                 <!-- /.col -->
 
-                <div class="col-xs-3">
+                <div class="col-md-3">
                   <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
 
                     <div class="info-box-content">
                       <span class="info-box-text">Total Sales</span>
-                      <span class="info-box-number">ksh.<?php echo number_format($total,0) ; ?></span>
+                      <span class="info-box-number">ksh.<?php echo number_format($total,2) ; ?></span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -97,13 +97,13 @@
                 </div>
                 <!-- /.col -->
 
-                <div class="col-xs-3">
+                <div class="col-md-3">
                   <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
 
                     <div class="info-box-content">
                       <span class="info-box-text">Total Profit</span>
-                      <span class="info-box-number">ksh.<?php echo number_format($profit,0) ; ?></span>
+                      <span class="info-box-number">ksh.<?php echo number_format($profit,2) ; ?></span>
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -139,16 +139,16 @@
                                 <tr>
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
                                 <td><?php echo $row->order_date; ?></td>
-                                <td>ksh. <?php echo number_format($row->total); ?></td>
-                                <td>ksh. <?php echo number_format($row->sale_profit); ?></td>
+                                <td>ksh. <?php echo number_format($row->total,2); ?></td>
+                                <td>ksh. <?php echo number_format($row->sale_profit,2); ?></td>
                                 </tr>
                             <?php
                             }
                             if($p_total || $s_total > 0){
                               echo "<tr class ='bg-blue'>
                               <td colspan= '2'>Totals</td>
-                              <td>ksh. ".number_format($s_total)." </td>
-                              <td>ksh. ".number_format($p_total)." </td>
+                              <td>ksh. ".number_format($s_total,2)." </td>
+                              <td>ksh. ".number_format($p_total,2)." </td>
                               </tr>";
                             }
                             ?>

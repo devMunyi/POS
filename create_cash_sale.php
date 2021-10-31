@@ -112,8 +112,8 @@
             $insert->execute();
 
           }
-          echo '<script>location.href="cash_sales";</script>';
-
+          $proceed = 1;
+          header('refresh:2;create_cash_sale');
         }
       }
 
@@ -304,11 +304,11 @@
         html+='<td><select class="form-control productid" name="productid[]" style="width:200px;" required><option value="">--Select Product--</option><?php
         echo fill_product($pdo)?></select></td>';
         html+='<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
-        html+='<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
+        html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
         html+='<td><input type="hidden" class="form-control productprofit" style="width:150px;" name="productprofit[]" readonly></td>';
-        html+='<td><input type="text" class="form-control quantity_product" style="width:100px;" name="quantity[]" required></td>';
-        html+='<td><input type="text" class="form-control productunit" style="width:100px;" name="productunit[]" readonly></td>';
+        html+='<td><input type="text" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
+        html+='<td><input type="text" class="form-control productunit" style="width:50px;" name="productunit[]" readonly></td>';
         html+='<td><input type="text" class="form-control producttotal" style="width:150px;" name="producttotal[]" readonly></td>';
         html+='<td><input type="text" class="form-control profit_" style="width:150px;" name="item_profit[]" id="profit_" readonly></td>';
         html+='<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>'
@@ -324,6 +324,11 @@
             data:{id:productid},
             success:function(data){
               //console.log(data);
+              /*let totals_ = $(".quantity_product").val() * $(".productprice").val();
+              let profit_ = $(".quantity_product").val() * $(".productprofit").val();
+              let totals = roundNum(totals_, 2);
+              let profit =roundNum(profit_, 2);
+              */
               tr.find(".productcode").val(data["product_code"]);
               tr.find(".productname").val(data["product_name"]);
               tr.find(".productstock").val(data["stock"]);
@@ -331,8 +336,8 @@
               tr.find(".productprice").val(data["sell_price"]);
               tr.find(".productprofit").val(data["product_profit"]);
               tr.find(".quantity_product").val(0);
-              tr.find(".producttotal").val(tr.find(".quantity_product").val() * tr.find(".productprice").val());
-              tr.find(".profit_").val(tr.find(".quantity_product").val() * tr.find(".productprofit").val());
+              tr.find(".producttotal").val(roundNum(tr.find(".quantity_product").val() * tr.find(".productprice").val(), 2));
+              tr.find(".profit_").val(roundNum(tr.find(".quantity_product").val() * tr.find(".productprofit").val(),2));
               calculate(0,0);
             }
           })
@@ -343,7 +348,7 @@
       $(document).on('click','.btn-remove', function(){
         $(this).closest('tr').remove();
         calculate(0,0);
-        $("#paid").val(0);
+        $("#paid").val(0.00);
       })
 
       $("#myOrder").delegate(".quantity_product","keyup change", function(){
@@ -352,12 +357,28 @@
         if((quantity.val()-0)>(tr.find(".productstock").val()-0)){
           swal("Warning",`Stock available is low`,"warning");
           quantity.val(1);
-          tr.find(".producttotal").val(quantity.val() * tr.find(".productprice").val());
-          tr.find(".profit_").val(quantity.val() * tr.find(".productprofit").val());
+          /*let totals2_ = quantity.val() * $(".productprice").val();
+          let profit2_ = quantity.val() * $(".productprofit").val();
+          let totals2 = roundNum(totals2_, 2);
+          let profit2 =roundNum(profit2_, 2);
+
+          tr.find(".producttotal").val(totals2);
+          tr.find(".profit_").val(profit2);
+          */
+          tr.find(".producttotal").val(roundNum(quantity.val() * tr.find(".productprice").val(), 2));
+          tr.find(".profit_").val(roundNum(quantity.val() * tr.find(".productprofit").val(), 2));
           calculate(0,0);
         }else{
-          tr.find(".producttotal").val(quantity.val() * tr.find(".productprice").val());
-          tr.find(".profit_").val(quantity.val() * tr.find(".productprofit").val());
+          /*let totals3_ = quantity.val() * $(".productprice").val();
+          let profit3_ = quantity.val() * $(".productprofit").val();
+          let totals3 = roundNum(totals3_, 2);
+          let profit3 =roundNum(profit3_, 2);
+    
+          tr.find(".producttotal").val(totals3);
+          tr.find(".profit_").val(profit3);
+          */
+          tr.find(".producttotal").val(roundNum(quantity.val() * tr.find(".productprice").val(), 2));
+          tr.find(".profit_").val(roundNum(quantity.val() * tr.find(".productprofit").val(), 2));
           calculate(0,0);
         }
       })
@@ -370,25 +391,39 @@
 
         $(".producttotal").each(function(){
           net_total = net_total + ($(this).val()*1);
+          //net_total_ = roundNum(net_total, 2)
         })
 
         $(".profit_").each(function(){
           net_profit = net_profit + ($(this).val()*1);
+          //net_profit_ = roundNum(net_profit, 2);
         })
 
-
         due = paid - net_total;
-
+        
         $("#total").val(net_total);
         $("#net_profit").val(net_profit);
         $("#due").val(due);
       }
 
-
-      $("#paid").keyup(function(){
-        var paid = $(this).val();
-        calculate(paid);
+      $("#paid").change(function(){
+        let totals = $("#total").val();
+        let paid = $(this).val();
+        if((parseInt(paid)) < (parseInt(totals))){
+          swal("Warning", 'Cash received must be greater or equal to sale total', "warning");
+        }else{
+          calculate(paid);
+        }
       })
+
+      function roundNum(value, decimals){
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals).toFixed(decimals);
+      }
+
+      let proceed = '<?php echo $proceed; ?>';
+      if(proceed === "1"){
+        swal("success",`Transaction Recorded`,"success");
+      }
 
     });
   </script>

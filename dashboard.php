@@ -101,7 +101,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Today's Sales Amount</span>
-              <span class="info-box-number"><small>ksh. <?php echo number_format($total,0); ?></small></span>
+              <span class="info-box-number"><small>ksh. <?php echo number_format($total,2); ?></small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -144,8 +144,8 @@
                               <td><?php echo $row->q; ?>
                                 <span><?php echo $row->product_unit; ?></span>
                               </td>      
-                              <td>ksh <?php echo number_format($row->total); ?></td>
-                              <td>ksh <?php echo number_format($row->item_profit); ?></td>
+                              <td>ksh <?php echo number_format($row->total,2); ?></td>
+                              <td>ksh <?php echo number_format($row->item_profit,2); ?></td>
                               </tr>
 
                         <?php

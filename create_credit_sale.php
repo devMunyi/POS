@@ -163,7 +163,8 @@
                 $insert->execute();
 
               }
-            echo '<script>location.href="credit_sales";</script>';
+            $proceed = 1;
+            header('refresh:2;create_credit_sale');
 
           }
         }
@@ -454,6 +455,10 @@
         calculate(paid);
       })
 
+      let proceed = '<?php echo $proceed; ?>';
+      if(proceed === "1"){
+        swal("success",`Transaction Recorded`,"success");
+      }
     });
   </script>
 

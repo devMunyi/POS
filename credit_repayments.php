@@ -78,9 +78,9 @@
                                 <tr>
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->creditor_no; ?></td>
-                                <td>ksh. <?php echo number_format($row->amount_paid); ?></td>
+                                <td>ksh. <?php echo number_format($row->amount_paid,2); ?></td>
                                 <td><?php echo fancydate($row->date_paid); ?></td>
-                                <td>ksh. <?php echo number_format($row->credit_balance); ?></td>
+                                <td>ksh. <?php echo number_format($row->credit_balance,2); ?></td>
                                 <td><?php echo fancydate($row->due_date); ?></td>
                                 <td>
                                     <?php if($_SESSION['role']=="Admin"){ ?>

@@ -74,7 +74,7 @@
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
                                 <td><?php echo $row->order_date; ?></td>
-                                <td>ksh. <?php echo number_format($row->total); ?></td>
+                                <td>ksh. <?php echo number_format($row->total,2); ?></td>
                                 <td><?php echo $row->sale_type ?></td>
                                 <td>
                                     <?php if($_SESSION['role']=="Admin"){ ?>

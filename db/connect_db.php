@@ -1,12 +1,11 @@
 <?php
 date_default_timezone_set("Africa/Nairobi");
-
-/*$cleardb_server = 'localhost'; 
+/*
+$cleardb_server = 'localhost'; 
 $cleardb_db   = 'pos_db'; // Your database name.
 $cleardb_username = 'root';             // Your database username.
 $cleardb_password = '';
 */
-
 // Your databas 'r.].
 //\.
 //2.

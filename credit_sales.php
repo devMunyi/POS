@@ -79,7 +79,7 @@
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->customer_no; ?></td>
                                 <td><?php echo $row->order_date; ?></td>
-                                <td>ksh. <?php echo number_format($row->total); ?></td>
+                                <td>ksh. <?php echo number_format($row->total,2); ?></td>
                                 <td><?php echo $row->sale_type ?></td>
                                 <td>ksh. <?php echo number_format($row->credit_balance); ?></td>
                                 <td><?php echo $row->status; ?></td>
