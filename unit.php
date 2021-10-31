@@ -84,8 +84,8 @@ if(isset($_POST['submit'])){
                     <tr>
                         <th>No</th>
                         <th>Unit Name</th>
-                      </tr>
                         <th>Action</th>
+                      </tr>  
                 </thead>
                 <tbody>
                 <?php

@@ -82,11 +82,12 @@
                 </thead>
                 <tbody>
                 <?php
+                $no = 1;
                 $select = $pdo->prepare('SELECT * FROM tbl_category');
                 $select->execute();
                 while($row=$select->fetch(PDO::FETCH_OBJ)){ ?>
                   <tr>
-                    <td><?php echo $row->cat_id; ?></td>
+                    <td><?php echo $no++; ?></td>
                     <td><?php echo $row->cat_name; ?></td>
                     <td>
                         <a href="edit_category?id=<?php echo $row->cat_id; ?>"

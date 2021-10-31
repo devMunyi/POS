@@ -204,12 +204,12 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Stock</label>
-                            <input type="" min="1" step=""
+                            <input type="text"
                             class="form-control" name="stock" value="<?php echo $stock_db; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="">Minimum Stock</label>
-                            <input type="number" min="1" step=""
+                            <input type="text"
                             class="form-control" name="min_stock" value="<?php echo $min_stock_db; ?>" required>
                         </div>
                         <div class="form-group">

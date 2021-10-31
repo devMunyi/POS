@@ -19,12 +19,12 @@
     function fill_product($pdo){
       $output= '';
 
-      $select = $pdo->prepare("SELECT * FROM tbl_product");
+      $select = $pdo->prepare("SELECT * FROM tbl_product ORDER BY product_name ASC");
       $select->execute();
       $result = $select->fetchAll();
 
       foreach($result as $row){
-        $output.='<option value="'.$row['product_id'].'">'.$row["product_code"].'</option>';
+        $output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'<b>('.$row["product_code"].')</b>'.'</option>';
       }
 
       return $output;
@@ -224,7 +224,7 @@
                   </div>
                   <!-- /.input group -->
                 </div>
-              </div
+              </div>
             </div>
 
             <div class="box-body">
@@ -233,8 +233,8 @@
                   <thead>
                       <tr>
                           <th></th>
-                          <th>Code</th>
                           <th>Name</th>
+                          <th></th>
                           <th>Stock</th>
                           <th>Price</th>
                           <th></th>
@@ -260,8 +260,8 @@
             <div class="box-body">
               <div class="col-md-offset-1 col-md-10">
                 <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-5">
+                  <!--<div class="row">-->
+                    <div class="">
                       <label>Credit Total</label>
                       <div class="input-group">
                         <div class="input-group-addon">
@@ -271,7 +271,7 @@
                       </div>
                       
                     </div>
-                    <div class="col-md-5">
+                    <div style="display: none;" class="">
                       <label>Profit Total</label>
                       <div class="input-group">
                         <div class="input-group-addon">
@@ -280,7 +280,7 @@
                         <input type="text" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
                       </div>
                     </div>
-                  </div>
+                  <!--</div>-->
                   <!-- /.input group -->
                 </div>
                 <div class="form-group">
@@ -366,13 +366,13 @@
         var html='';
         html+='<tr>';
         html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-        html+='<td><select class="form-control productid" name="productid[]" style="width:100px;" required><option value="">--Select Product--</option><?php
+        html+='<td><select class="form-control productid" name="productid[]" style="width:200px;" required><option value="">--Select Product--</option><?php
         echo fill_product($pdo)?></select></td>';
-        html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
-        html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
+        html+='<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
+        html+='<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
         html+='<td><input type="hidden" class="form-control productprofit" style="width:150px;" name="productprofit[]" readonly></td>';
-        html+='<td><input type="number" min="1" max="50" class="form-control quantity_product" style="width:100px;" name="quantity[]" required></td>';
+        html+='<td><input type="text" class="form-control quantity_product" style="width:100px;" name="quantity[]" required></td>';
         html+='<td><input type="text" class="form-control productunit" style="width:100px;" name="productunit[]" readonly></td>';
         html+='<td><input type="text" class="form-control producttotal" style="width:150px;" name="producttotal[]" readonly></td>';
         html+='<td><input type="text" class="form-control profit_" style="width:150px;" name="item_profit[]" id="profit_" readonly></td>';
@@ -380,6 +380,7 @@
 
         $('#myOrder').append(html);
 
+        
         $('.productid').on('change', function(e){
           var productid = this.value;
           var tr=$(this).parent().parent();

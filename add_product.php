@@ -218,11 +218,11 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Stock</label><br>
-                            <input type="number" min="" step="" class="form-control" name="stock" required>
+                            <input type="text" class="form-control" name="stock" required>
                         </div>
                         <div class="form-group">
                             <label for="">Minimum Stock</label><br>
-                            <input type="number" min="" step="" class="form-control" name="min_stock" required>
+                            <input type="text" class="form-control" name="min_stock" required>
                         </div>
                         <div class="form-group">
                             <label for="">Unit</label>

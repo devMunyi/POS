@@ -49,8 +49,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
                                 <th>Code</th>
+                                <th>Name</th>
                                 <th>Orginal Price</th>
                                 <th>Selling Price</th>
                                 <th>Stock</th>
@@ -67,8 +67,8 @@
                             ?>
                                 <tr>
                                 <td><?php echo $no++ ;?></td>
-                                <td><?php echo $row->product_name; ?></td>
                                 <td><?php echo $row->product_code; ?></td>
+                                <td><?php echo $row->product_name; ?></td>
                                 <td>ksh. <?php echo number_format($row->purchase_price);?></td>
                                 <td>ksh. <?php echo number_format($row->sell_price); ?></td>
                                 <td> <?php if($row->stock=="0"){ ?>

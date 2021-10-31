@@ -1597,3 +1597,30 @@ function delete_message(message_id) {
 }
 
 ////////================End of Campaigns
+
+
+
+
+/////////////-----------------------------Product
+function search_prod() {
+    let porduct_search = $('#product_search').val();
+    $('#product_id_').val("");
+    if (product_search) {
+        let params = "key=" + product_search;
+        dbaction('/jresources/product_find', params, function (result) {
+            $('#product_results').slideDown("fast");
+            $('#product_results').html(result);
+        })
+    } else {
+        $('#product_results').fadeOut("fast");
+    }
+}
+
+function select_product(name, uid) {
+
+    $('#product_search').val(name);
+    $('#product_id_').val(uid);
+    $('#product_results').fadeOut("fast");
+}
+
+/////////-------------------------------Product

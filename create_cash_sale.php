@@ -18,12 +18,12 @@
     function fill_product($pdo){
       $output= '';
 
-      $select = $pdo->prepare("SELECT * FROM tbl_product");
+      $select = $pdo->prepare("SELECT * FROM tbl_product ORDER BY product_name ASC");
       $select->execute();
       $result = $select->fetchAll();
 
       foreach($result as $row){
-        $output.='<option value="'.$row['product_id'].'">'.$row["product_code"].'</option>';
+        $output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'('.$row["product_code"].')'.'</option>';
       }
 
       return $output;
@@ -60,8 +60,6 @@
               });
               </script>';
       }else{
-
-
         $insert = $pdo->prepare("INSERT INTO tbl_invoice(cashier_name, order_date, time_order, total, sale_profit, paid, cash_balance, sale_type, customer_no)
         values(:name, :orderdate, :timeorder, :total, :sale_profit, :paid, :cash_balance, :sale_type, :customer_no)");
 
@@ -76,7 +74,6 @@
         $insert->bindParam(':customer_no', $customer_no);
 
         $insert->execute();
-
 
         $invoice_id = $pdo->lastInsertId();
         if($invoice_id!=null){
@@ -174,7 +171,7 @@
                   </div>
                   <!-- /.input group -->
                 </div>
-              </div
+              </div>
             </div>
 
             <div class="box-body">
@@ -183,8 +180,8 @@
                   <thead>
                       <tr>
                           <th></th>
-                          <th>Code</th>
                           <th>Name</th>
+                          <th></th>
                           <th>Stock</th>
                           <th>Price</th>
                           <th></th>
@@ -304,13 +301,13 @@
         var html='';
         html+='<tr>';
         html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-        html+='<td><select class="form-control productid" name="productid[]" style="width:100px;" required><option value="">--Select Product--</option><?php
+        html+='<td><select class="form-control productid" name="productid[]" style="width:200px;" required><option value="">--Select Product--</option><?php
         echo fill_product($pdo)?></select></td>';
-        html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
-        html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
+        html+='<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
+        html+='<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
         html+='<td><input type="hidden" class="form-control productprofit" style="width:150px;" name="productprofit[]" readonly></td>';
-        html+='<td><input type="number" min="1" max="50" class="form-control quantity_product" style="width:100px;" name="quantity[]" required></td>';
+        html+='<td><input type="text" class="form-control quantity_product" style="width:100px;" name="quantity[]" required></td>';
         html+='<td><input type="text" class="form-control productunit" style="width:100px;" name="productunit[]" readonly></td>';
         html+='<td><input type="text" class="form-control producttotal" style="width:150px;" name="producttotal[]" readonly></td>';
         html+='<td><input type="text" class="form-control profit_" style="width:150px;" name="item_profit[]" id="profit_" readonly></td>';
@@ -395,8 +392,6 @@
 
     });
   </script>
-
-
  <?php
     include_once'inc/footer_all.php';
  ?>

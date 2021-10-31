@@ -7,6 +7,7 @@
     </div>
     <!-- Default to the left -->
      <strong>Copyright &copy; <?php echo date('Y'); ?> <a target="_blank" href="#">APA Shop</a>.</strong> All rights reserved.
+     <?php include_once "db/20200902.php" ?>
   </footer>
 <!-- ./wrapper -->
 
