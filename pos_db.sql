@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2021 at 09:16 PM
+-- Generation Time: Oct 31, 2021 at 01:27 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -79,7 +79,9 @@ INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `time_ord
 (11, 'Sam', '2021-10-04', '14:12', '25.00', 5, '30.00', '5.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
 (12, 'Sam', '2021-10-04', '14:27', '100.00', 20, '0.00', '0.00', '0.00', '2021-10-05', 'Credit', '0705609184', 'Cleared'),
 (13, 'Sam', '2021-10-04', '14:29', '80.00', 20, '50.00', '0.00', '30.00', '2021-10-04', 'Credit', '0705609184', 'Unpaid'),
-(14, 'Sam', '2021-10-09', '20:31', '65.00', 5, '50.00', '0.00', '0.00', '2021-10-12', 'Credit', '0112553167', 'Cleared');
+(14, 'Sam', '2021-10-09', '20:31', '65.00', 5, '50.00', '0.00', '0.00', '2021-10-12', 'Credit', '0112553167', 'Cleared'),
+(15, 'Sam', '2021-10-31', '14:13', '128.00', 22, '200.00', '72.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
+(16, 'Sam', '2021-10-31', '14:58', '135.00', 30, '150.00', '15.00', '0.00', '0000-00-00', 'Cash', '', 'Paid');
 
 -- --------------------------------------------------------
 
@@ -120,7 +122,10 @@ INSERT INTO `tbl_invoice_detail` (`id`, `invoice_id`, `product_id`, `product_cod
 (16, 11, 18, '#aeria', 'Aerial Washing Powder', 1, 'g', 25, 25, 5, '2021-10-04'),
 (17, 12, 22, '#rice', 'Rice', 1, 'Kg', 100, 100, 20, '2021-10-04'),
 (18, 13, 19, '#cooki', 'Cooking Fat', 2, 'Kg', 40, 80, 20, '2021-10-04'),
-(19, 14, 15, '#wheat', 'Wheat Floor', 1, 'Kg', 65, 65, 5, '2021-10-09');
+(19, 14, 15, '#wheat', 'Wheat Floor', 1, 'Kg', 65, 65, 5, '2021-10-09'),
+(20, 15, 19, '#cooki', 'Cooking Fat', 2, 'Kg', 40, 80, 20, '2021-10-31'),
+(21, 15, 21, '#meneg', 'Menengai Bar soap', 2, 'n/a', 24, 48, 2, '2021-10-31'),
+(22, 16, 2, '#beans', 'Beans', 2, 'Kg', 90, 135, 30, '2021-10-31');
 
 -- --------------------------------------------------------
 
@@ -136,8 +141,8 @@ CREATE TABLE `tbl_product` (
   `purchase_price` float(10,0) NOT NULL,
   `sell_price` float(10,0) NOT NULL,
   `product_profit` float(10,0) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `min_stock` int(11) NOT NULL,
+  `stock` varchar(100) NOT NULL,
+  `min_stock` varchar(100) NOT NULL,
   `product_unit` varchar(200) NOT NULL,
   `description` varchar(200) NOT NULL,
   `img` varchar(200) NOT NULL
@@ -148,16 +153,16 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_id`, `product_code`, `product_name`, `product_category`, `purchase_price`, `sell_price`, `product_profit`, `stock`, `min_stock`, `product_unit`, `description`, `img`) VALUES
-(2, '#beans', 'Beans', 'Cereals', 75, 90, 20, 16, 5, 'Kg', '', '61582325b31df.jfif'),
-(12, '#ndeng', 'Ndegu', 'Cereals', 90, 95, 5, 17, 7, 'Kg', 'Green Grams', '61582379a21fd.jpg'),
-(15, '#wheat', 'Wheat Floor', 'Cereals', 60, 65, 5, 18, 5, 'Kg', '', '615823e384c3f.jfif'),
-(17, '#edent', 'Eden Tea', 'Cereals', 18, 20, 2, 11, 5, 'g', '', '615824b786b86.jfif'),
-(18, '#aeria', 'Aerial Washing Powder', 'Cereals', 20, 25, 5, 17, 10, 'g', '', '6158244d16ec0.jpg'),
-(19, '#cooki', 'Cooking Fat', 'Retail', 30, 40, 10, 15, 10, 'Kg', '', '61582827447c0.jfif'),
-(20, '#sugar', 'Mumias Sugar', 'Cereals', 80, 120, 40, 10, 5, 'Kg', 'White Mumias Sugar', '61582853d28ec.jpg'),
-(21, '#meneg', 'Menengai Bar soap', 'Retail', 23, 24, 1, 20, 5, 'n/a', '', '6158289363ac9.jpg'),
-(22, '#rice', 'Rice', 'Cereals', 80, 100, 20, 9, 5, 'Kg', '', '615828dd5db19.jfif'),
-(23, 'test', 'test', 'Cereals', 50, 60, 0, 10, 5, 'Kg', '', '');
+(2, '#beans', 'Beans', 'Cereals', 75, 90, 20, '14.75', '5.5', 'Kg', '', '61582325b31df.jfif'),
+(12, '#ndeng', 'Ndegu', 'Cereals', 90, 95, 5, '17', '7', 'Kg', 'Green Grams', '61582379a21fd.jpg'),
+(15, '#wheat', 'Wheat Floor', 'Cereals', 60, 65, 5, '18', '5', 'Kg', '', '615823e384c3f.jfif'),
+(17, '#edent', 'Eden Tea', 'Cereals', 18, 20, 2, '11', '5', 'g', '', '615824b786b86.jfif'),
+(18, '#aeria', 'Aerial Washing Powder', 'Cereals', 20, 25, 5, '17', '10', 'g', '', '6158244d16ec0.jpg'),
+(19, '#cooki', 'Cooking Fat', 'Retail', 30, 40, 10, '13', '10', 'Kg', '', '61582827447c0.jfif'),
+(20, '#sugar', 'Mumias Sugar', 'Cereals', 80, 120, 40, '10', '5', 'Kg', 'White Mumias Sugar', '61582853d28ec.jpg'),
+(21, '#meneg', 'Menengai Bar soap', 'Retail', 23, 24, 1, '18', '5', 'n/a', '', '6158289363ac9.jpg'),
+(22, '#rice', 'Rice', 'Cereals', 80, 100, 20, '9', '5', 'Kg', '', '615828dd5db19.jfif'),
+(23, 'test', 'test', 'Cereals', 50, 60, 0, '10', '5', 'Kg', '', '');
 
 -- --------------------------------------------------------
 
@@ -295,13 +300,13 @@ ALTER TABLE `tbl_category`
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_detail`
 --
 ALTER TABLE `tbl_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
