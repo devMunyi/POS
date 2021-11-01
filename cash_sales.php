@@ -1,5 +1,5 @@
 <?php
-    include_once'db/connect_db.php';
+    include_once'db/connect_db.inc';
     session_start();
     if($_SESSION['username']==""){
         header('location:index');

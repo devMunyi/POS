@@ -1,5 +1,5 @@
 <?php
-    include_once('db/connect_db.php');
+    include_once('db/connect_db.inc');
     include_once('php_functions/functions.php');
 
     session_start();
