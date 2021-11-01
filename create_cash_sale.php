@@ -304,7 +304,7 @@
         html+='<td><select class="form-control productid" name="productid[]" style="width:200px;" required><option value="">--Select Product--</option><?php
         echo fill_product($pdo)?></select></td>';
         html+='<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
-        html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
+        html+='<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
         html+='<td><input type="hidden" class="form-control productprofit" style="width:150px;" name="productprofit[]" readonly></td>';
         html+='<td><input type="text" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
@@ -409,7 +409,7 @@
       $("#paid").change(function(){
         let totals = $("#total").val();
         let paid = $(this).val();
-        if((parseInt(paid)) < (parseInt(totals))){
+        if((parseFloat(paid)) < (parseFloat(totals))){
           swal("Warning", 'Cash received must be greater or equal to sale total', "warning");
         }else{
           calculate(paid);

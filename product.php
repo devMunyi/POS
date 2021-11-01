@@ -69,7 +69,7 @@
                                 <td><?php echo $no++ ;?></td>
                                 <td><?php echo $row->product_code; ?></td>
                                 <td><?php echo $row->product_name; ?></td>
-                                <td>ksh. <?php echo number_format($row->purchase_price,2);?></td>
+                                <td>ksh. <?php echo number_format($row->purchase_price, 2);?></td>
                                 <td>ksh. <?php echo number_format($row->sell_price,2); ?></td>
                                 <td> <?php if($row->stock=="0"){ ?>
                                 <span class="label label-danger"><?php echo $row->stock; ?></span>

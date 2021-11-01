@@ -19,7 +19,7 @@
       <div class="row">
         <!-- get alert stock -->
         <?php
-        $select = $pdo->prepare("SELECT count(product_code) as total FROM tbl_product WHERE stock <= min_stock");
+        $select = $pdo->prepare("SELECT count(product_code) as total FROM tbl_product WHERE 0 + stock <= 0 + min_stock");
         $select->execute();
         $row=$select->fetch(PDO::FETCH_OBJ);
         $total1 = $row->total;
