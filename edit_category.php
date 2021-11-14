@@ -7,8 +7,8 @@
 
   if(isset($_POST['btn_edit'])){
       $category_name = $_POST['category'];
-      $update = $pdo->prepare("UPDATE tbl_category SET cat_name='$category_name' WHERE cat_id='".$_GET['id']."' ");
-      $update->bindParam(':cat_name', $category_name);
+      $update = $pdo->prepare("UPDATE tbl_category SET cat_name=:cat_name WHERE cat_id='".$_GET['id']."' ");
+      $update->bindParam('cat_name', $category_name);
       if($update->execute()){
         echo'<script type="text/javascript">
         jQuery(function validation(){

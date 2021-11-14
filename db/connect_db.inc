@@ -13,6 +13,7 @@ $cleardb_password = '';
 //n\'
 //\'/\/e password. If your database has no password, leave it empty.
 
+
 //Get Heroku ClearDB connection information
 $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 $cleardb_server = $cleardb_url["host"];

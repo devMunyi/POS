@@ -70,10 +70,11 @@
           $active_cust = $pdo->prepare("SELECT * FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
           $active_cust->execute();
 
-          $credit_limit_ = $pdo->prepare("SELECT sum(sale_profit) as credit_limit FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
+          //$credit_limit_ = $pdo->prepare("SELECT sum(sale_profit) as credit_limit FROM tbl_invoice WHERE total > 0 AND customer_no = //'$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
+          $credit_limit_ = $pdo->prepare("SELECT credit_amount FROM tbl_credit_limit WHERE cust_no = '$customer_no'");
           $credit_limit_->execute();
           $row=$credit_limit_->fetch(PDO::FETCH_OBJ);
-          $credit_limit = $row->credit_limit;
+          $credit_limit = $row->credit_amount;
 
           if($active_cust->rowCount() < 1 ){
             echo '<script type="text/javascript">
@@ -108,7 +109,7 @@
               });
               </script>';
             }else{
-            $insert = $pdo->prepare("INSERT INTO tbl_invoice(`cashier_name`, `order_date`, `time_order`, `total`,sale_profit, `paid`, `credit_balance`, `due_date`, `sale_type`, `customer_no`, `status`)
+            $insert = $pdo->prepare("INSERT INTO tbl_invoice(`cashier_name`, `order_date`, `time_order`, `total`,`sale_profit`, `paid`, `credit_balance`, `due_date`, `sale_type`, `customer_no`, `status`)
             values(:name, :orderdate, :timeorder, :total, :sale_profit, :paid, :credit_balance, :due_date, :sale_type, :customer_no, :status)");
 
             $insert->bindParam(':name', $cashier_name);

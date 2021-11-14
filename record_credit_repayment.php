@@ -58,7 +58,7 @@
           if($amount_paid >= $credit_bal){
             $new_bal = $amount_paid - $credit_bal;
             if($new_bal >= 0){
-              updatedb("tbl_invoice", "credit_balance = 0, status = 'Cleared'", "invoice_id = $invoice_id");
+              updatedb("tbl_invoice", "credit_balance = 0, status = 'Paid'", "invoice_id = $invoice_id");
               $new_bal = 0;
               
               $fds = array('cashier_name','invoice_id', 'creditor_no', 'amount_paid', 'date_paid', 'credit_balance', 'due_date');

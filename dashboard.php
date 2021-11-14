@@ -113,7 +113,7 @@
       <div class="col-md-offset-1 col-md-10">
         <div class="box box-success">
           <div class="box-header with-border">
-              <h3 class="box-title">List of Each Product Sales</h3>
+              <h3 class="box-title">Sale Summary In Last 30 days</h3>
           </div>
           <div class="box-body">
             <div class="col-md-offset-1 col-md-10">
@@ -133,7 +133,7 @@
                           <?php
                           $no = 1;
                           $select = $pdo->prepare("SELECT product_code,product_name,price,product_unit,sum(qty) as q, sum(qty*price) as total, sum(item_profit) as item_profit FROM
-                          tbl_invoice_detail GROUP BY product_id ORDER BY sum(qty) DESC LIMIT 30");
+                          tbl_invoice_detail WHERE DATEDIFF(order_date, \"$date\") <= 30 AND status =\"Paid\" GROUP BY product_id ORDER BY sum(qty) DESC LIMIT 0,30");
                           $select->execute();
                           while($row=$select->fetch(PDO::FETCH_OBJ)){
                           ?>

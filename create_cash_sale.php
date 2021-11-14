@@ -111,6 +111,37 @@
 
             $insert->execute();
 
+
+            //Handling credit limit
+            if(!empty($customer_no)){
+              $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE credit_balance > 0 AND customer_no = '$customer_no' AND status = 'Unpaid'");
+              $select->execute();
+
+              if($select->rowCount() > 0){ 
+              }else{
+                $credit_amount_ = $pdo->prepare("SELECT sum(sale_profit) as credit_amount FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
+                $credit_amount_->execute();
+                $row=$credit_amount_->fetch(PDO::FETCH_OBJ);
+                $credit_amount = $row->credit_amount;
+
+                //Check if credit record exists in tbl_credit_limit
+                $sel_credit = $pdo->prepare("SELECT * FROM tbl_credit_limit WHERE cust_no = '$customer_no'");
+                $sel_credit->execute();
+                if($sel_credit->rowCount()>0){
+                  $update = $pdo->prepare("UPDATE tbl_credit_limit SET credit_amount=:credit_amount WHERE cust_no=:cust_no");
+                  $update->bindParam(':credit_amount', $credit_amount);
+                  $update->bindParam(':cust_no', $customer_no);
+                  $update->execute();
+                }else{
+                  $cred_insert = $pdo->prepare("INSERT INTO tbl_credit_limit(`cust_no`, `credit_amount`)
+                  values(:cred_cust_no, :cred_cust_amount)");
+
+                  $cred_insert->bindParam(':cred_cust_no',  $customer_no);
+                  $cred_insert->bindParam(':cred_cust_amount',   $credit_amount);
+                  $cred_insert->execute();
+                }
+              }
+            }
           }
           $proceed = 1;
           header('refresh:2;create_cash_sale');
