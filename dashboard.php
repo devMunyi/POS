@@ -100,7 +100,7 @@
             <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Today's Sales Amount</span>
+              <span class="info-box-text">Today's Sales <br> Amount</span>
               <span class="info-box-number"><small>ksh. <?php echo number_format($total,2); ?></small></span>
             </div>
             <!-- /.info-box-content -->
