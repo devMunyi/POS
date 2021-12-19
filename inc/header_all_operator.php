@@ -106,7 +106,7 @@
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="img/logo1.jpg" class="img-circle" alt="User Image">
+                <img src="img/logo2.jpg" class="img-circle" alt="User Image">
                 <p>
                   <?php echo $_SESSION['username']; ?> - <?php echo $_SESSION['role']; ?>
                   <small class="text-capitalize"><?php echo $_SESSION['fullname']; ?></small>

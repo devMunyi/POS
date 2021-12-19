@@ -9,13 +9,13 @@ $cleardb_username = 'root';             // Your database username.
 $cleardb_password = '';
 */
 
-
 // Your databas 'r.].
 //\.
 //2.
 //4]
 //n\'
 //\'/\/e password. If your database has no password, leave it empty.
+
 
 //Get Heroku ClearDB connection information
 $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
