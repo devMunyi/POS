@@ -9,7 +9,6 @@ $cleardb_username = 'root';             // Your database username.
 $cleardb_password = '';
 */
 
-
 // Your databas 'r.].
 //\.
 //2.
