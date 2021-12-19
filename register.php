@@ -1,26 +1,28 @@
 <?php
-    include_once'db/connect_db.inc';
+    include_once 'db/connect_db.inc';
     session_start();
     if($_SESSION['role']!=="Admin"){
         header('location:index');
     }
     include_once'inc/header_all.php';
 
-    error_reporting(0);
+    //error_reporting(0);
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
 
-    $id = $_GET['id'];
+        $delete = $pdo->prepare("DELETE FROM tbl_user WHERE user_id = $id");
 
-    $delete = $pdo->prepare("DELETE FROM tbl_user WHERE user_id=".$id);
-
-    if($delete->execute()){
-        echo'<script type="text/javascript">
-            jQuery(function validation(){
-            swal("Info", "User Has Been Deleted", "info", {
-            button: "Continue",
+        if($delete->execute()){
+            echo'<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Info", "User Has Been Deleted", "info", {
+                button: "Okay",
+                    });
                 });
-            });
-            </script>';
+                </script>';
+        }
     }
+
 
     if(isset($_POST['submit'])){
 

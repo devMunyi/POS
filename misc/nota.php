@@ -1,6 +1,6 @@
 <?php
 require('../fpdf/fpdf.php');
-include_once'../db/connect_db.php';
+include_once('../db/connect_db.inc');
 
 $id = $_GET['id'];
 $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE invoice_id=$id");

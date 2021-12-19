@@ -28,11 +28,15 @@
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 
   <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
-
+  <link rel="stylesheet" href="dist/css/skins/skin-green-light.min.css">
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="dist/css/skins/skin-blue-light.min.css">
    <!--Trial-->
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components2/font-awesome/css/font-awesome.min.css">
@@ -65,7 +69,7 @@
   <script src="chartjs/dist/Chart.min.js"></script>
 </head>
 
-<body class="hold-transition skin-green sidebar-mini">
+<body class="hold-transition skin-yellow-light sidebar-mini">
   <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">

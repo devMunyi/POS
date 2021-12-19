@@ -11,21 +11,24 @@
         }
     }
 
-    error_reporting(0);
+    //error_reporting(0);
 
-    $id = $_GET['id'];
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
 
-    $delete = $pdo->prepare("DELETE FROM tbl_product WHERE product_id=".$id);
+        $delete = $pdo->prepare("DELETE FROM tbl_product WHERE product_id=".$id);
 
-    if($delete->execute()){
-        echo'<script type="text/javascript">
-            jQuery(function validation(){
-            swal("Info", "Product Has Been Deleted", "info", {
-            button: "Continue",
+        if($delete->execute()){
+            echo'<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Info", "Product Has Been Deleted", "info", {
+                button: "Okay",
+                    });
                 });
-            });
-            </script>';
+                </script>';
+        }
     }
+    
 
 ?>
 <html>

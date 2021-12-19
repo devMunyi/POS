@@ -11,22 +11,25 @@
         }
     }
 
-    error_reporting(0);
+    //error_reporting(0);
 
-    $id = $_GET['id'];
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
 
-    $delete_query = "DELETE tbl_invoice , tbl_invoice_detail FROM tbl_invoice INNER JOIN tbl_invoice_detail ON tbl_invoice.invoice_id =
-    tbl_invoice_detail.invoice_id WHERE tbl_invoice.invoice_id=$id";
-    $delete = $pdo->prepare($delete_query);
-    if($delete->execute()){
-        echo'<script type="text/javascript">
-            jQuery(function validation(){
-            swal("Info", "Transaction Has been deleted", "info", {
-            button: "Continue",
+        $delete_query = "DELETE tbl_invoice , tbl_invoice_detail FROM tbl_invoice INNER JOIN tbl_invoice_detail ON tbl_invoice.invoice_id =
+        tbl_invoice_detail.invoice_id WHERE tbl_invoice.invoice_id=$id";
+        $delete = $pdo->prepare($delete_query);
+        if($delete->execute()){
+            echo'<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Info", "Transaction Has been deleted", "info", {
+                button: "Okay",
+                    });
                 });
-            });
-            </script>';
+                </script>';
+        }
     }
+    
 ?>
 
 <html>

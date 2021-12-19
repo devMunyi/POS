@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2021 at 11:55 AM
+-- Generation Time: Dec 05, 2021 at 08:52 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -57,6 +57,13 @@ CREATE TABLE `tbl_credit_limit` (
   `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tbl_credit_limit`
+--
+
+INSERT INTO `tbl_credit_limit` (`credit_id`, `cust_no`, `cust_name`, `credit_amount`, `data_created`, `date_updated`) VALUES
+(1, '0112553167', '', '156.00', '2021-11-14 13:09:08', '2021-11-14 13:37:54');
+
 -- --------------------------------------------------------
 
 --
@@ -80,6 +87,19 @@ CREATE TABLE `tbl_invoice` (
   `status` varchar(50) NOT NULL DEFAULT 'Paid'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tbl_invoice`
+--
+
+INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `order_updated_date`, `time_order`, `total`, `sale_profit`, `paid`, `cash_balance`, `credit_balance`, `due_date`, `sale_type`, `customer_no`, `status`) VALUES
+(1, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:08', '25.00', '5.00', '30.00', '5.00', '0.00', '0000-00-00', 'Cash', '0112553167', 'Paid'),
+(2, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:23', '875.00', '149.00', '1000.00', '125.00', '0.00', '0000-00-00', 'Cash', '0112553167', 'Paid'),
+(3, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:25', '48.00', '2.00', '0.00', '0.00', '48.00', '2021-12-17', 'Credit', '0112553167', 'Unpaid'),
+(4, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:32', '90.00', '20.00', '100.00', '10.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
+(5, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:34', '25.00', '5.00', '30.00', '5.00', '0.00', '0000-00-00', 'Cash', '', 'Paid'),
+(6, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:36', '20.00', '2.00', '20.00', '0.00', '0.00', '0000-00-00', 'Cash', '0112553167', 'Paid'),
+(7, 'Sam', '2021-11-14', '2021-11-14 13:47:43', '13:37', '80.00', '20.00', '100.00', '20.00', '0.00', '0000-00-00', 'Cash', '0112553167', 'Paid');
+
 -- --------------------------------------------------------
 
 --
@@ -102,6 +122,21 @@ CREATE TABLE `tbl_invoice_detail` (
   `sale_type` varchar(100) NOT NULL DEFAULT 'Cash',
   `status` varchar(100) NOT NULL DEFAULT 'Paid'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_invoice_detail`
+--
+
+INSERT INTO `tbl_invoice_detail` (`id`, `invoice_id`, `product_id`, `product_code`, `product_name`, `qty`, `product_unit`, `price`, `total`, `item_profit`, `order_date`, `order_updated_date`, `sale_type`, `status`) VALUES
+(1, 1, 18, '#aeria', 'Aerial Washing Powder', '1.00', 'g', '25.00', '25.00', '5.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(2, 2, 12, '#ndeng', 'Ndegu', '5.00', 'Kg', '95.00', '475.00', '25.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(3, 2, 20, '#sugar', 'Mumias Sugar', '3.00', 'Kg', '120.00', '360.00', '120.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(4, 2, 17, '#edent', 'Eden Tea', '2.00', 'g', '20.00', '40.00', '4.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(5, 3, 21, '#meneg', 'Menengai Bar soap', '2.00', 'n/a', '24.00', '48.00', '2.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(6, 4, 2, '#beans', 'Beans', '1.00', 'Kg', '90.00', '90.00', '20.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(7, 5, 18, '#aeria', 'Aerial Washing Powder', '1.00', 'g', '25.00', '25.00', '5.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(8, 6, 17, '#edent', 'Eden Tea', '1.00', 'g', '20.00', '20.00', '2.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid'),
+(9, 7, 19, '#cooki', 'Cooking Fat', '2.00', 'Kg', '40.00', '80.00', '20.00', '2021-11-14', '0000-00-00 00:00:00', 'Cash', 'Paid');
 
 -- --------------------------------------------------------
 
