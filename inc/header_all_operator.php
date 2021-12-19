@@ -99,7 +99,7 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="img/logo1.jpg" class="user-image" alt="User Image">
+              <img src="img/logo3.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs"><?php echo $_SESSION['username']; ?></span>
             </a>

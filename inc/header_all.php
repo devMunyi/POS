@@ -73,8 +73,8 @@
   <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
-
       <!-- Logo -->
+
       <a href="dashboard" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>I</b>POS</span>
@@ -96,14 +96,14 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="img/logo2.jpg" class="user-image" alt="User Image">
+                <img src="img/logo3.png" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs text-lowercase"><?php echo $_SESSION['username']; ?></span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="img/logo2.jpg" class="img-circle" alt="User Image">
+                  <img src="img/logo3.png" class="img-circle" alt="User Image">
 
                   <p class="text-lowercase">
                     <?php echo $_SESSION['username']; ?> - <?php echo $_SESSION['role']; ?>
