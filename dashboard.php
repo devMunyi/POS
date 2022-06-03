@@ -1,5 +1,5 @@
 <?php
-    include_once'db/connect_db.inc';
+    include_once 'db/connect_db.inc';
     session_start();
     if($_SESSION['username']==""){
         header('location:index');
@@ -116,7 +116,7 @@
               <h3 class="box-title">Sale Summary In Last 30 days</h3>
           </div>
           <div class="box-body">
-            <div class="col-md-offset-1 col-md-10">
+            <div class="">
               <div style="overflow-x:auto;">
                   <table class="table table-striped" id="myBestProduct">
                       <thead>
@@ -170,5 +170,5 @@
 
 
  <?php
-    include_once'inc/footer_all.php';
+    include_once 'inc/footer_all.php';
  ?>

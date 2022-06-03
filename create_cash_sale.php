@@ -1,5 +1,5 @@
 <?php
-   include_once'db/connect_db.inc';
+   include_once 'db/connect_db.inc';
    session_start();
    if($_SESSION['username']==""){
      header('location:index');
@@ -12,7 +12,7 @@
    }
 
 
-    error_reporting(0);
+    //error_reporting(0);
     date_default_timezone_set('Africa/Nairobi');
 
     function fill_product($pdo){

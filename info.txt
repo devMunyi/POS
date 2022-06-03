@@ -1,3 +1,0 @@
-Receiving/Purchases: Transaction ID (Computer Generated)
-Date, Invoice Number, Supplier, Remarks. Then ang tanan na products gin buy mo from that supplier with the same invoice dapat puede sya e encode in this form
-the total amount purchased for this will be reflected at the bottom para ma double check ang amount

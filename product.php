@@ -1,6 +1,6 @@
 <?php
-    include_once'db/connect_db.inc';
     session_start();
+    include_once ('db/connect_db.inc');
     if($_SESSION['username']==""){
         header('location:index.php');
     }else{
@@ -91,7 +91,12 @@
                                     }
                                     ?>
                                     <a href="view_product?id=<?php echo $row->product_id; ?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
+                                    <?php
+                                        if($_SESSION['role']=="Admin"){?>
                                     <a href="edit_product?id=<?php echo $row->product_id; ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
+                                    <?php    }
+                                    ?>
+                                    
                                 </td>
                                 </tr>
                             <?php

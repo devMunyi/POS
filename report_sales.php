@@ -113,6 +113,7 @@
               </div>
 
               <!--- Transaction Table -->
+              <br><br>
               <div style="overflow-x:auto;">
                   <table class="table table-striped" id="mySalesReport">
                       <thead>
@@ -155,7 +156,7 @@
                       </tbody>
                   </table>
               </div>
-
+              <br><br>
               <!-- Transaction Graphic -->
               <?php
                   $select = $pdo->prepare("SELECT order_date, sum(total) as sales_total FROM tbl_invoice WHERE order_date BETWEEN :fromdate AND :todate
@@ -178,7 +179,6 @@
 
                   </canvas>
               </div>
-
               <?php
                   $select = $pdo->prepare("SELECT order_date, sum(sale_profit) as sales_profit FROM tbl_invoice WHERE order_date BETWEEN :fromdate AND :todate
                   GROUP BY order_date");
