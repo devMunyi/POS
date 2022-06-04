@@ -69,7 +69,7 @@
   <script src="chartjs/dist/Chart.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
   <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
