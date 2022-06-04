@@ -19,7 +19,7 @@ if(isset($_POST['btn_login'])){
         $message = 'success';
         header('refresh:2;dashboard');
 
-    }else if($row['username']==$username AND $row['password']==$password AND $row['role']=="Operator" AND $row['is_active']=="1"){
+    }else if($row['username']==$username AND $row['password']==$password AND $row['role']=="Cashier" AND $row['is_active']=="1"){
         $_SESSION['user_id']=$row['user_id'];
         $_SESSION['username']=$row['username'];
         $_SESSION['fullname']=$row['fullname'];

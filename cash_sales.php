@@ -44,13 +44,14 @@
     <section class="content-header">
       <h1>
         Transaction
+      </h1>
     </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">Cash Sale List</h3>
+                <h3 class="box-title">Cash Sales List</h3>
                 <a href="create_cash_sale" class="btn btn-success btn-sm pull-right">Add Cash Sale</a>
             </div>
             <div class="box-body">

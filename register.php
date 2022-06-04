@@ -103,7 +103,7 @@
                                     <label>Authority </label>
                                     <select class="form-control" name="select_option" required>
                                         <option>Admin</option>
-                                        <option>Operator</option>
+                                        <option>Cashier</option>
                                     </select>
                                 </div>
                         </div><!-- /.box-body -->

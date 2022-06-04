@@ -155,7 +155,23 @@
         <!-- Optionally, you can add icons to the links -->
         <li><a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li><a href="product"><i class="fa fa-archive"></i> <span>Products</span></a></li>
+        <li><a href="./cash_sales"><i class="fa fa-shopping-cart"></i> <span>Cash Transactions</span></a></li>
         <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Credit Transactions</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="credit_sales"class=""><i class="fa fa-circle-o"></i> All Credit Sales</a></li>
+                    <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
+                    <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
+                </ul>
+          </li>
+          <li><a href="./sale"><i class="fa fa-shopping-cart"></i> <span>All Transactions</span></a></li>
+        <!-- <li class="treeview">
                 <a href="#">
                     <i class="fa fa-shopping-cart"></i>
                     <span>Transaction</span>
@@ -170,7 +186,7 @@
                     <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
                     <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
                 </ul>
-          </li>
+          </li> -->
       </ul>
       <!-- /.sidebar-menu -->
     </section>

@@ -49,9 +49,9 @@
     <section class="content container-fluid">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">All Sale List</h3>
-                <a href="create_cash_sale" class="btn btn-success btn-sm">Add Cash Sale</a>
-                <a href="create_credit_sale" class="btn btn-success btn-sm pull-right">Add Credit Sale</a>
+                <h3 class="box-title">All Sales List</h3>
+                <!-- <a href="create_cash_sale" class="btn btn-success btn-sm">Add Cash Sale</a>
+                <a href="create_credit_sale" class="btn btn-success btn-sm pull-right">Add Credit Sale</a> -->
             </div>
             <div class="box-body">
                 <div style="overflow-x:auto;">
