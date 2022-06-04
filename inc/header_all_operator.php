@@ -155,7 +155,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li><a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li><a href="product"><i class="fa fa-archive"></i> <span>Products</span></a></li>
-        <li><a href="./credits"><i class="fa fa-users"></i> <span>Credits</span></a></li>
+        <!-- <li><a href="./credits"><i class="fa fa-users"></i> <span>Credits</span></a></li> -->
         <li><a href="./cash_sales"><i class="fa fa-shopping-cart"></i> <span>Cash Transactions</span></a></li>
         <li class="treeview">
                 <a href="#">
@@ -167,6 +167,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="credit_sales"class=""><i class="fa fa-circle-o"></i> All Credit Sales</a></li>
+                    <li><a href="credits"class=""><i class="fa fa-circle-o"></i> Creditors Limits</a></li>
                     <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
                     <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
                 </ul>
