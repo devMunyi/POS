@@ -7,7 +7,7 @@ date_default_timezone_set("Africa/Nairobi");
 $cleardb_db   = 'pos_db'; // Your database name.
 $cleardb_username = 'root';             // Your database username.
 $cleardb_password = '';
- */   
+ */ 
 
 //Get Heroku ClearDB connection information
 $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));

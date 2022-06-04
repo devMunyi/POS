@@ -40,6 +40,7 @@ if (isset($_POST['save_order'])) {
   $cash_balance = $_POST['due'];
   $sale_type = "Cash";
   $customer_no = $_POST['customer_no'];
+  echo $sale_profit;
 
 
 
@@ -116,7 +117,6 @@ if (isset($_POST['save_order'])) {
 
         //Handling credit limit
         if (!empty($customer_no)) {
-          echo $customer_no;
           $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE credit_balance > 0 AND customer_no = '$customer_no' AND status = 'Unpaid'");
           $select->execute();
 
@@ -126,6 +126,7 @@ if (isset($_POST['save_order'])) {
             $credit_amount_->execute();
             $row = $credit_amount_->fetch(PDO::FETCH_OBJ);
             $credit_amount = $row->credit_amount;
+            echo $credit_amount;
 
             //Check if credit record exists in tbl_credit_limit
             $sel_credit = $pdo->prepare("SELECT * FROM tbl_credit_limit WHERE cust_no = '$customer_no'");
@@ -419,9 +420,9 @@ if (isset($_POST['save_order'])) {
 
 
     function calculate(paid) {
-      var net_total = 0;
-      var net_profit = 0;
-      var paid = paid;
+      let net_total = 0;
+      let net_profit = 0;
+      paid = paid;
 
       $(".producttotal").each(function() {
         net_total = net_total + ($(this).val() * 1);

@@ -56,6 +56,7 @@
                                 <th>Name</th>
                                 <th>Orginal Price</th>
                                 <th>Selling Price</th>
+                                <th>Expected Profit</th>
                                 <th>Stock</th>
                                 <th>Action</th>
                             </tr>
@@ -74,6 +75,7 @@
                                 <td><?php echo $row->product_name; ?></td>
                                 <td>ksh. <?php echo number_format($row->purchase_price, 2);?></td>
                                 <td>ksh. <?php echo number_format($row->sell_price,2); ?></td>
+                                <td>ksh. <?php echo number_format($row->product_profit,2); ?></td>
                                 <td> <?php if($row->stock=="0"){ ?>
                                 <span class="label label-danger"><?php echo $row->stock; ?></span>
                                 <?php }elseif($row->stock<=$row->min_stock){ ?>

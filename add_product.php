@@ -17,6 +17,7 @@
         $category = $_POST['category'];
         $purchase = $_POST['purchase_price'];
         $sell = $_POST['sell_price'];
+        $product_profit=$sell - $purchase;
         $stock = $_POST['stock'];
         $min_stock = $_POST['min_stock'];
         $unit = $_POST['unit'];
@@ -69,14 +70,15 @@
                                 $product_img = $img_new;
                                 if(!isset($error)){
 
-                                    $insert = $pdo->prepare("INSERT INTO tbl_product(product_code,product_name,product_category,purchase_price,sell_price,stock,min_stock,product_unit,description,img)
-                                    values(:product_code,:product_name,:product_category,:purchase_price,:sell_price,:stock,:min_stock,:unit,:desc,:img)");
+                                    $insert = $pdo->prepare("INSERT INTO tbl_product(product_code,product_name,product_category,purchase_price,sell_price,product_profit,stock,min_stock,product_unit,description,img)
+                                    values(:product_code,:product_name,:product_category,:purchase_price,:sell_price,:product_profit,:stock,:min_stock,:unit,:desc,:img)");
 
                                     $insert->bindParam(':product_code', $code);
                                     $insert->bindParam(':product_name', $product);
                                     $insert->bindParam(':product_category', $category);
                                     $insert->bindParam(':purchase_price', $purchase);
                                     $insert->bindParam(':sell_price', $sell);
+                                    $insert->bindParam(':product_profit', $product_profit);
                                     $insert->bindParam(':stock', $stock);
                                     $insert->bindParam(':min_stock', $min_stock);
                                     $insert->bindParam(':unit', $unit);
@@ -125,14 +127,15 @@
 
                     }
                 }else {
-                      $insert = $pdo->prepare("INSERT INTO tbl_product(product_code,product_name,product_category,purchase_price,sell_price,stock,min_stock,product_unit,description,img)
-                      values(:product_code,:product_name,:product_category,:purchase_price,:sell_price,:stock,:min_stock,:unit,:desc,:img)");
+                      $insert = $pdo->prepare("INSERT INTO tbl_product(product_code,product_name,product_category,purchase_price,sell_price,product_profit,stock,min_stock,product_unit,description,img)
+                      values(:product_code,:product_name,:product_category,:purchase_price,:sell_price,:product_profit,:stock,:min_stock,:unit,:desc,:img)");
 
                         $insert->bindParam(':product_code', $code);
                         $insert->bindParam(':product_name', $product);
                         $insert->bindParam(':product_category', $category);
                         $insert->bindParam(':purchase_price', $purchase);
                         $insert->bindParam(':sell_price', $sell);
+                        $insert->bindParam(':product_profit', $product_profit);
                         $insert->bindParam(':stock', $stock);
                         $insert->bindParam(':min_stock', $min_stock);
                         $insert->bindParam(':unit', $unit);
@@ -184,7 +187,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Product Code</label><br>
-                            <input type="text" class="form-control" name="product_code">
+                            <input type="text" class="form-control" name="product_code" maxlength="6">
                         </div>
                         <div class="form-group">
                             <label for="">Product Name</label>

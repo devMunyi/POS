@@ -38,6 +38,7 @@
         $category_req = $_POST['category'];
         $purchase_req = $_POST['purchase_price'];
         $sell_req = $_POST['sell_price'];
+        $product_profit= $sell_req - $purchase_req;
         $stock_req = $_POST['stock'];
         $min_stock_req = $_POST['min_stock'];
         $unit_req = $_POST['unit'];
@@ -68,7 +69,7 @@
                             $img_new;
                             if(!isset($error)){
                                 $update = $pdo->prepare("UPDATE tbl_product SET product_code=:product_code,product_name=:product_name,
-                                product_category=:product_category, purchase_price=:purchase_price, sell_price=:sell_price,
+                                product_category=:product_category, purchase_price=:purchase_price, sell_price=:sell_price, product_profit=:product_profit,
                                 stock=:stock,min_stock=:min_stock,product_unit=:product_unit ,description=:description, img=:img WHERE product_id=$id");
 
                                 $update->bindParam('product_code', $code_req);
@@ -76,6 +77,7 @@
                                 $update->bindParam('product_category', $category_req);
                                 $update->bindParam('purchase_price', $purchase_req);
                                 $update->bindParam('sell_price', $sell_req);
+                                $update->bindParam('product_profit', $product_profit);
                                 $update->bindParam('stock', $stock_req);
                                 $update->bindParam('min_stock', $min_stock_req);
                                 $update->bindParam('product_unit', $satuan_req);
@@ -108,7 +110,7 @@
 
             }else{
                 $update = $pdo->prepare("UPDATE tbl_product SET product_code=:product_code,product_name=:product_name,
-                product_category=:product_category, purchase_price=:purchase_price, sell_price=:sell_price,
+                product_category=:product_category, purchase_price=:purchase_price, sell_price=:sell_price, product_profit=:product_profit,
                 stock=:stock,min_stock=:min_stock, product_unit=:product_unit ,description=:description, img=:img WHERE product_id=$id");
 
                 $update->bindParam('product_code', $code_req);
@@ -116,6 +118,7 @@
                 $update->bindParam('product_category', $category_req);
                 $update->bindParam('purchase_price', $purchase_req);
                 $update->bindParam('sell_price', $sell_req);
+                $update->bindParam('product_profit', $product_profit);
                 $update->bindParam('stock', $stock_req);
                 $update->bindParam('min_stock', $min_stock_req);
                 $update->bindParam('product_unit', $unit_req);
