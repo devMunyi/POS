@@ -155,6 +155,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li><a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li><a href="product"><i class="fa fa-archive"></i> <span>Products</span></a></li>
+        <li><a href="./credits"><i class="fa fa-users"></i> <span>Credits</span></a></li>
         <li><a href="./cash_sales"><i class="fa fa-shopping-cart"></i> <span>Cash Transactions</span></a></li>
         <li class="treeview">
                 <a href="#">

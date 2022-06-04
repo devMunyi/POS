@@ -141,7 +141,7 @@
           <li><a href="./category"><i class="fa fa-list-alt"></i> <span>Category</span></a></li>
           <li><a href="./unit"><i class="fa fa-balance-scale"></i> <span>Units</span></a></li>
           <li><a href="./register"><i class="fa fa-users"></i> <span>Manage Users</span></a></li>
-          <li><a href="./credits"><i class="fa fa-users"></i> <span>Manage Credits</span></a></li>
+          <li><a href="./credits"><i class="fa fa-users"></i> <span>Credits</span></a></li>
           <li><a href="./product"><i class="fa fa-archive"></i> <span>Products</span></a></li>
           
           <li><a href="./cash_sales"><i class="fa fa-shopping-cart"></i> <span>Cash Transactions</span></a></li>
