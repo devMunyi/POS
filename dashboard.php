@@ -78,7 +78,7 @@ if ($_SESSION['username'] == "") {
           <span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Today's Transaction</span>
+            <span class="info-box-text">Today's <br> Transaction</span>
             <span class="info-box-number"><small><?php echo $row->i ?></small></span>
           </div>
           <!-- /.info-box-content -->
