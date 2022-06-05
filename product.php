@@ -60,14 +60,9 @@ if (isset($_GET['id'])) {
                                 <th>Selling Price</th>
                                 <th>Expected Profit</th>
                                 <th>Stock</th>
-                                <?php if ($_SESSION['role'] == "Admin") { ?>
-                                    <th>Action</th>
-                                <?php
-                                }
-                                ?>
 
+                                <th>Action</th>
                             </tr>
-
                         </thead>
                         <tbody>
                             <?php
@@ -93,9 +88,10 @@ if (isset($_GET['id'])) {
                                         <span class="label label-default"><?php echo $row->product_unit; ?></span>
                                     </td>
                                     <td>
+                                        <a href="view_product?id=<?php echo $row->product_id; ?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
                                         <?php if ($_SESSION['role'] == "Admin") { ?>
                                             <a href="product?id=<?php echo $row->product_id; ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            <a href="view_product?id=<?php echo $row->product_id; ?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
+
                                             <a href="edit_product?id=<?php echo $row->product_id; ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                                         <?php
                                         }
