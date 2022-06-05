@@ -435,7 +435,7 @@ if (isset($_POST['save_order'])) {
       })
 
       due = paid - net_total;
-
+      console.log("N")
       $("#total").val(net_total);
       $("#net_profit").val(net_profit);
       $("#due").val(due);

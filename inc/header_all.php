@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,26 +32,26 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-
   <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-green-light.min.css">
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
   <link rel="stylesheet" href="dist/css/skins/skin-blue-light.min.css">
-   <!--Trial-->
+  <!--Trial-->
+   <!--Bootsrap style sheet-->
+   <link rel="stylesheet" href="bower_components2/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="bower_components2/font-awesome/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="bower_components2/font-awesome/css/font-awesome.min.css"> -->
   <!-- Ionicons -->
-  <link rel="stylesheet" href="bower_components2/Ionicons/css/ionicons.min.css">
+  <!-- <link rel="stylesheet" href="bower_components2/Ionicons/css/ionicons.min.css"> -->
   <!-- Morris chart -->
-  <link rel="stylesheet" href="bower_components2/morris.js/morris.css">
+  <!-- <link rel="stylesheet" href="bower_components2/morris.js/morris.css"> -->
   <!-- jvectormap -->
-  <link rel="stylesheet" href="bower_components2/jvectormap/jquery-jvectormap.css">
+  <!-- <link rel="stylesheet" href="bower_components2/jvectormap/jquery-jvectormap.css"> -->
   <!--End of trial-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -116,9 +117,7 @@
                     <a href="profile" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
-                    <a href="misc/logout" class="btn btn-default btn-flat"
-                    onclick="return confirm('Are you sure ?')"
-                    class="btn btn-danger">Sign out</a>
+                    <a href="misc/logout" class="btn btn-default btn-flat" onclick="return confirm('Are you sure ?')" class="btn btn-danger">Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -143,7 +142,7 @@
           <li><a href="./register"><i class="fa fa-users"></i> <span>Manage Users</span></a></li>
           <!-- <li><a href="./credits"><i class="fa fa-users"></i> <span>Credits</span></a></li> -->
           <li><a href="./product"><i class="fa fa-archive"></i> <span>Products</span></a></li>
-          
+
           <li><a href="./cash_sales"><i class="fa fa-shopping-cart"></i> <span>Cash Transactions</span></a></li>
           <!-- <li class="treeview">
                 <a href="#">
@@ -158,19 +157,19 @@
                 </ul>
           </li> -->
           <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span>Credit Transactions</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="credit_sales"class=""><i class="fa fa-circle-o"></i> All Credit Sales</a></li>
-                    <li><a href="credits"class=""><i class="fa fa-circle-o"></i> Creditors Limits</a></li>
-                    <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
-                    <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
-                </ul>
+            <a href="#">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Credit Transactions</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="credit_sales" class=""><i class="fa fa-circle-o"></i> All Credit Sales</a></li>
+              <li><a href="credits" class=""><i class="fa fa-circle-o"></i> Creditors Limits</a></li>
+              <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
+              <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
+            </ul>
           </li>
           <li><a href="./sale"><i class="fa fa-shopping-cart"></i> <span>All Transactions</span></a></li>
           <!-- <li class="treeview">
@@ -191,5 +190,3 @@
       </section>
       <!-- /.sidebar -->
     </aside>
-
-    

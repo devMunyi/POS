@@ -126,7 +126,11 @@ if ($_SESSION['username'] == "") {
                     <th>Product Name</th>
                     <th>Sold Quantity</th>
                     <th>Sale Total</th>
-                    <th>Sale Profit</th>
+                    <?php if ($_SESSION['role'] == "Admin") { ?>
+                      <th>Sale Profit</th>
+                    <?php
+                    }
+                    ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -145,7 +149,12 @@ if ($_SESSION['username'] == "") {
                         <span><?php echo $row->product_unit; ?></span>
                       </td>
                       <td>ksh <?php echo number_format($row->total, 2); ?></td>
-                      <td>ksh <?php echo number_format($row->item_profit, 2); ?></td>
+                      <?php if ($_SESSION['role'] == "Admin") { ?>
+                        <td>ksh <?php echo number_format($row->item_profit, 2); ?></td>
+                      <?php
+                      }
+                      ?>
+
                     </tr>
 
                   <?php
