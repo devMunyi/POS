@@ -119,14 +119,13 @@
                       <thead>
                           <tr>
                             <th>Cashier</th>
-                            <th>Sale Date</th>
                             <th>Sale Amount</th>
                             <th>Sale Profit</th>
                           </tr>
                       </thead>
                       <tbody>
                       <?php
-                            $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE order_date BETWEEN :fromdate AND :todate");
+                            $select = $pdo->prepare("SELECT cashier_name, sum(total) AS individual_s_total, sum(sale_profit) AS individual_s_profit FROM tbl_invoice WHERE order_date BETWEEN :fromdate AND :todate GROUP BY cashier_name");
                             $select->bindParam(':fromdate', $_POST['date_1']);
                             $select->bindParam(':todate', $_POST['date_2']);
 
@@ -134,20 +133,19 @@
                             $p_total = 0;
                             $s_total = 0;
                             while($row=$select->fetch(PDO::FETCH_OBJ)){
-                              $p_total = ($p_total + $row->sale_profit);
-                              $s_total = ($s_total + $row->total);
+                              $p_total = ($p_total + $row->individual_s_profit);
+                              $s_total = ($s_total + $row->individual_s_total);
                             ?>
                                 <tr>
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
-                                <td><?php echo $row->order_date; ?></td>
-                                <td>ksh. <?php echo number_format($row->total,2); ?></td>
-                                <td>ksh. <?php echo number_format($row->sale_profit,2); ?></td>
+                                <td>ksh. <?php echo number_format($row->individual_s_total,2); ?></td>
+                                <td>ksh. <?php echo number_format($row->individual_s_profit,2); ?></td>
                                 </tr>
                             <?php
                             }
                             if($p_total || $s_total > 0){
                               echo "<tr class ='bg-blue'>
-                              <td colspan= '2'>Totals</td>
+                              <td colspan= '1'>Totals</td>
                               <td>ksh. ".number_format($s_total,2)." </td>
                               <td>ksh. ".number_format($p_total,2)." </td>
                               </tr>";

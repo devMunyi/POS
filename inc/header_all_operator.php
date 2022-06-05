@@ -73,7 +73,6 @@
 
     <!-- chart Js -->
     <script src="chartjs/dist/Chart.min.js"></script>
-
     </div>
   </head>
 

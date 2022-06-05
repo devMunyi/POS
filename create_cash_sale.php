@@ -40,8 +40,6 @@ if (isset($_POST['save_order'])) {
   $cash_balance = $_POST['due'];
   $sale_type = "Cash";
   $customer_no = $_POST['customer_no'];
-  echo $sale_profit;
-
 
 
   $arr_product_id =  $_POST['productid'];
@@ -126,7 +124,6 @@ if (isset($_POST['save_order'])) {
             $credit_amount_->execute();
             $row = $credit_amount_->fetch(PDO::FETCH_OBJ);
             $credit_amount = $row->credit_amount;
-            echo $credit_amount;
 
             //Check if credit record exists in tbl_credit_limit
             $sel_credit = $pdo->prepare("SELECT * FROM tbl_credit_limit WHERE cust_no = '$customer_no'");
