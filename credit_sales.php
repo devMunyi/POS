@@ -85,7 +85,7 @@
                                 <td><?php echo $row->order_date; ?></td>
                                 <td>ksh. <?php echo number_format($row->total,2); ?></td>
                                 <td><?php echo $row->sale_type ?></td>
-                                <td>ksh. <?php echo number_format($row->credit_balance); ?></td>
+                                <td>ksh. <?php echo number_format($row->credit_balance, 2); ?></td>
                                 <td><?php echo $row->status; ?></td>
                                 <td><?php echo fancydate($row->due_date); ?></td>
                                 <td>
