@@ -46,6 +46,7 @@ input {
     -moz-box-shadow:0 1px 2px #ddd;
     -webkit-box-shadow:0 1px 2px #ddd;
 }
+
 #btn {
 	background: grey;
 	border: 1px solid #999;
@@ -53,14 +54,17 @@ input {
 	font-size: 13px;
     font-weight: bold;
 }
+
 #maintable {
 	margin: 50px auto;
 	width: 800px;
 }
+
 #filter {
 	width: 70%;
 	float:left;
 }
+
 #addd {
 	border: 1px solid #999;
 	background: #EEEEEE;
@@ -75,6 +79,7 @@ input {
 	text-decoration: none;
 	color: #000000;
 }
+
 #cccc {
 	border: 1px solid #999;
 	background: #EEEEEE;
@@ -89,15 +94,18 @@ input {
 	text-decoration: none;
 	color: #000000;
 }
+
 .clearfix {
 	clear: both;
 }
+
 #resultTable {
     border-collapse: separate;
 	background-color: #FFFFFF;
     border-spacing: 0;
     max-width: 100%;
 }
+
 #resultTable {
 	color: #666666;
     text-shadow: 0 1px 0 #FFFFFF;
@@ -106,6 +114,7 @@ input {
 	box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
 	margin-top: 13px;
 }
+
 #resultTable thead tr th {
     background: none repeat scroll 0 0 #EEEEEE;
     color: #222222;
@@ -122,11 +131,13 @@ input {
 	padding: 10px 14px;
 	border-top: 1px solid #999999;
 }
+
 #mainmain {
 	margin: 50px auto;
 	text-align: center;
 	width: 660px;
 }
+
 #mainmain a {
 	text-decoration: none;
 	padding: 20px 10px;

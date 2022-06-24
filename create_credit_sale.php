@@ -42,6 +42,7 @@
       $sale_type = "Credit";
       $customer_no = $_POST['customer_no'];
       $status = "Unpaid";
+      $orStatus = "Partially Paid";
 
 
       $arr_product_id =  $_POST['productid'];
@@ -64,10 +65,10 @@
               </script>';
 
       }else{
-          $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE credit_balance > 0 AND customer_no = '$customer_no' AND status = '$status'");
+          $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE credit_balance > 0 AND customer_no = '$customer_no' AND (status = '$status' || status = '$orStatus')");
           $select->execute();
 
-          $active_cust = $pdo->prepare("SELECT * FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
+          $active_cust = $pdo->prepare("SELECT * FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND status = 'Paid' AND DATEDIFF(order_date, \"$date\") <= 30");
           $active_cust->execute();
 
           //$credit_limit_ = $pdo->prepare("SELECT sum(sale_profit) as credit_limit FROM tbl_invoice WHERE total > 0 AND customer_no = //'$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
@@ -147,8 +148,8 @@
                 }
 
 
-                $insert = $pdo->prepare("INSERT INTO tbl_invoice_detail(invoice_id, product_id, product_code, product_name, qty, product_unit, price, total, item_profit, order_date)
-                values(:invid, :productid, :productcode, :productname, :qty, :productunit, :price, :total, :item_profit, :orderdate)");
+                $insert = $pdo->prepare("INSERT INTO tbl_invoice_detail(`invoice_id`, `product_id`, `product_code`, `product_name`, `qty`, `product_unit`, `price`, `total`, `item_profit`, `order_date`, `sale_type`, `status`)
+                values(:invid, :productid, :productcode, :productname, :qty, :productunit, :price, :total, :item_profit, :orderdate, :sale_type , :status)");
 
                 $insert->bindParam(':invid',  $invoice_id);
                 $insert->bindParam(':productid',   $arr_product_id[$i]);
@@ -160,6 +161,8 @@
                 $insert->bindParam(':item_profit',   $arr_item_profit[$i]);
                 $insert->bindParam(':total',   $arr_product_total[$i]);
                 $insert->bindParam(':orderdate',  $order_date);
+                $insert->bindParam(':sale_type',  $sale_type);
+                $insert->bindParam(':status',  $status);
 
                 $insert->execute();
 

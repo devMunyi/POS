@@ -12,10 +12,6 @@
      }
    }
 
-
-    error_reporting(0);
-    date_default_timezone_set('Africa/Nairobi');
-
     function fill_product($pdo){
       $output= '';
 
@@ -35,7 +31,6 @@
       $amount_paid = $_POST['amount_paid'];
       $date_paid = $date;
       $creditor_no = $_POST['creditor_no'];
-      $status = 'Paid';
     
     
       if($creditor_no == ""){
@@ -48,31 +43,47 @@
               </script>';
 
       }else{
-        $crdtor_exists = checkrowexists("tbl_invoice", "sale_type = 'Credit' AND customer_no = '$creditor_no' AND credit_balance > 0 AND (status = 'Unpaid' || status = 'Partially paid')");
+        $crdtor_exists = checkrowexists("tbl_invoice", "sale_type = 'Credit' AND customer_no = '$creditor_no' AND credit_balance > 0 AND status != 'Paid'");
         if($crdtor_exists == 1){
-          $row = fetchonerow("tbl_invoice", "customer_no = '$creditor_no' AND sale_type = 'Credit' AND credit_balance > 0 AND (status = 'Unpaid' || status = 'Partially paid')", "invoice_id, credit_balance, due_date");
+          $row = fetchonerow("tbl_invoice", "customer_no = '$creditor_no' AND sale_type = 'Credit' AND credit_balance > 0 AND status != 'Paid'", "invoice_id, credit_balance, due_date");
           $credit_bal = $row['credit_balance'];
           $invoice_id = $row["invoice_id"];
           $due_date = $row['due_date'];
 
-          if($amount_paid >= $credit_bal){
-            $new_bal = $amount_paid - $credit_bal;
-            if($new_bal >= 0){
-              updatedb("tbl_invoice", "credit_balance = 0, status = 'Paid'", "invoice_id = $invoice_id");
+          //if($amount_paid >= $credit_bal){
+            $new_bal_ = $amount_paid - $credit_bal;
+            if($new_bal_ >= 0){
               $new_bal = 0;
+              $pay_status = "Paid";
+              $message = "Full Repayment recorded successfully";
+            }else{
+              $new_bal = abs($new_bal_);
+              $pay_status = "Partially Paid";
+              $message = "Partial repayment recorded successfully";
+            }
+              updatedb("tbl_invoice", "credit_balance = $new_bal, status = '$pay_status'", "invoice_id = $invoice_id");//update tbl_invoice table
+              updatedb("tbl_invoice_detail", "status = '$pay_status'", "invoice_id = $invoice_id"); //update tbl_invoice_detail table
               
-              $fds = array('cashier_name','invoice_id', 'creditor_no', 'amount_paid', 'date_paid', 'credit_balance', 'due_date');
-              $vals = array("$cashier_name","$invoice_id", "$creditor_no", "$amount_paid", "$date_paid", "$new_bal", "$due_date");
-
+              $fds = array('cashier_name','invoice_id', 'creditor_no', 'amount_paid', 'date_paid', 'credit_balance', 'due_date', 'status');
+              $vals = array("$cashier_name","$invoice_id", "$creditor_no", "$amount_paid", "$date_paid", "$new_bal", "$due_date", "$pay_status");
               $create = addtodb('tbl_repayments', $fds, $vals);
-              if($create == 1){
-                  echo '<script type="text/javascript">
-                  jQuery(function validation(){
-                  swal("Success", "Repayment recorded successfully", "success", {
-                  button: "Okay",
-                      });
-                  });
-                  </script>';
+
+              if($create  == 1 && $message == "Full Repayment recorded successfully"){
+                echo '<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Success", "Full Repayment recorded successfully", "success", {
+                button: "Okay",
+                    });
+                });
+                </script>';
+              } elseif ($create  == 1 && $message == "Partial repayment recorded successfully"){
+                echo '<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Success", "Partial repayment recorded successfully", "success", {
+                button: "Okay",
+                    });
+                });
+                </script>';
               }else{
                   echo '<script type="text/javascript">
                   jQuery(function validation(){
@@ -82,16 +93,17 @@
                   });
                   </script>';
               }
-            }          
-          }else{
-            echo '<script type="text/javascript">
-              jQuery(function validation(){
-              swal("Warning", "The customer credit balance is ksh '.$credit_bal.'", "warning", {
-              button: "Back",
-                  });
-              });
-              </script>';
-          }
+                      
+          //}
+          //else{
+          //   echo '<script type="text/javascript">
+          //     jQuery(function validation(){
+          //     swal("Warning", "The customer credit balance is ksh '.$credit_bal.'", "warning", {
+          //     button: "Back",
+          //         });
+          //     });
+          //     </script>';
+          // }
         }else {
           echo '<script type="text/javascript">
               jQuery(function validation(){

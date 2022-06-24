@@ -60,7 +60,6 @@ if (isset($_GET['id'])) {
                                 <th>Selling Price</th>
                                 <th>Expected Profit</th>
                                 <th>Stock</th>
-
                                 <th>Action</th>
                             </tr>
                         </thead>
