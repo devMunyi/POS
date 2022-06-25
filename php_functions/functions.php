@@ -109,13 +109,11 @@ function crazystring($length)
     return $randomString;
 }
 
-function store_event($tbl, $fld, $event_details){
+function store_event($tbl, $fld, $event_details, $event_by, $stock="", $stock_value=0){
     global $fulldate;
-    $ses = session_details();
-    $event_by = $ses['uid'];
-    $fds = array('tbl','fld','event_details','event_date','event_by','status');
-    $vals = array("$tbl","$fld","$event_details","$fulldate","$event_by","1");
-    $create = addtodb('o_events',$fds,$vals);
+    $fds = array('tbl','fld','event_details','event_date','event_by', 'stock', 'stock_value', 'status');
+    $vals = array("$tbl","$fld","$event_details","$fulldate","$event_by", "$stock", $stock_value, "1");
+    $create = addtodb('tbl_events',$fds,$vals);
     if($create == 1)
     {
       return 1;
