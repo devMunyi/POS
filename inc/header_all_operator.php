@@ -76,7 +76,7 @@
     </div>
   </head>
 
-<body class="hold-transition skin-gree sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
   <div class="wrapper">
 
     <!-- Main Header -->
