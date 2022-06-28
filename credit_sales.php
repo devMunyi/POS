@@ -1,8 +1,8 @@
 <?php
-    include_once('db/connect_db.inc');
-    include_once('php_functions/functions.php');
-
     session_start();
+    include_once 'db/connect_db.inc';
+    include_once 'php_functions/functions.php';
+    
     if($_SESSION['username']==""){
         header('location:index');
     }else{

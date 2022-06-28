@@ -94,13 +94,45 @@ if (isset($_POST['update_product'])) {
                             $prod_sell_price =  $prod_["sell_price"];
                             $prod_unit =  $prod_["product_unit"];
                             $current_stock_with_units = $current_stock . " " . $prod_unit; //stock with units
-                            $current_stock_value_ = $current_stock * $prod_sell_price;
-                            $current_stock_value = number_format($current_stock_value_, 2); //net stock value
+                            $current_stock_value = $current_stock * $prod_sell_price;
+        
 
                             //store product update event
                             $user_id = $_SESSION['user_id'];
                             $events = "Product updated at [$fulldate] by [" . $_SESSION['username'] . " - " . $_SESSION['role'] . "]";
                             store_event('tbl_product', $prod_id, "$events", $user_id, $current_stock_with_units, $current_stock_value);
+
+
+
+                            ///---Begin updating tbl_stock_record table by current date
+                            $prod = fetchtable('tbl_product', "product_id > 0", "product_id", "ASC", "0,500", "sell_price, stock");
+                            $prod_net_stock_total = 0;
+                            $prod_net_val_total = 0;
+                            while ($p = mysqli_fetch_array($prod)) {
+                                $p_sellprice = $p['sell_price'];
+                                $p_stock = $p['stock'];
+                                $p_net_value_ = $p_sellprice * $p_stock;
+                                $p_net_value = "ksh. " . number_format($p_net_value_, 2);
+                                $prod_net_stock_total += $p_stock;
+                                $prod_net_val_total += $p_net_value_;
+                                $added_date = $date;
+                            }
+
+                            $select = $pdo->prepare("SELECT COUNT(id) AS records, stock_date FROM tbl_stock_record WHERE stock_date = '$date'");
+                            $select->execute();
+                            $row = $select->fetch(PDO::FETCH_OBJ);
+                            $stock_total_ = $row->records;
+                            $stock_date = $row->stock_date;
+
+                            if ($stock_total_ == 1) {
+                                updatedb("tbl_stock_record", "net_stock=$prod_net_stock_total, stock_value=$prod_net_val_total", "stock_date = '$date'");
+                            } else {
+                                $fds = array('net_stock', 'stock_value', 'stock_date');
+                                $vals = array($prod_net_stock_total, $prod_net_val_total, "$added_date");
+                                addtodb("tbl_stock_record", $fds, $vals);
+                            }
+
+                            ///---End updating tbl_stock_record table by current date
 
                             header('location:view_product?id=' . urlencode($id));
                         } else {
@@ -148,12 +180,40 @@ if (isset($_POST['update_product'])) {
             $prod_unit =  $prod_["product_unit"];
             $current_stock_with_units = $current_stock . " " . $prod_unit; //stock with units
             $current_stock_value_ = $current_stock * $prod_sell_price;
-            $current_stock_value = number_format($current_stock_value_, 2); //net stock value
 
             //store product update event
             $user_id = $_SESSION['user_id'];
             $events = "Product updated at [$fulldate] by [" . $_SESSION['username'] . " - " . $_SESSION['role'] . "]";
-            store_event('tbl_product', $prod_id, "$events", $user_id, $current_stock_with_units, $current_stock_value);
+            store_event('tbl_product', $prod_id, "$events", $user_id, $current_stock_with_units, $current_stock_value_);
+
+            ///---Begin updating tbl_stock_record table by current date
+            $prod = fetchtable('tbl_product', "product_id > 0", "product_id", "ASC", "0,500", "sell_price, stock");
+            $prod_net_stock_total = 0;
+            $prod_net_val_total = 0;
+            while ($p = mysqli_fetch_array($prod)) {
+                $p_sellprice = $p['sell_price'];
+                $p_stock = $p['stock'];
+                $p_net_value_ = $p_sellprice * $p_stock;
+                $p_net_value = "ksh. " . number_format($p_net_value_, 2);
+                $prod_net_stock_total += $p_stock;
+                $prod_net_val_total += $p_net_value_;
+                $added_date = $date;
+            }
+
+            $select = $pdo->prepare("SELECT COUNT(id) AS records, stock_date FROM tbl_stock_record WHERE stock_date = '$date'");
+            $select->execute();
+            $row = $select->fetch(PDO::FETCH_OBJ);
+            $stock_total_ = $row->records;
+            $stock_date = $row->stock_date;
+
+            if ($stock_total_ == 1) {
+                updatedb("tbl_stock_record", "net_stock=$prod_net_stock_total, stock_value=$prod_net_val_total", "stock_date = '$date'");
+            } else {
+                $fds = array('net_stock', 'stock_value', 'stock_date');
+                $vals = array($prod_net_stock_total, $prod_net_val_total, "$added_date");
+                addtodb("tbl_stock_record", $fds, $vals);
+            }
+            ///---End updating tbl_stock_record table by current date
 
 
             //redirect to product view

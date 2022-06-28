@@ -160,57 +160,32 @@ if ($_SESSION['username'] == "") {
             <table class="table table-striped" id="myStockReport">
               <thead>
                 <tr>
-                  <th>Product ID</th>
-                  <th>Product Code</th>
-                  <th>Product Name</th>
-                  <th>Product Category</th>
-                  <th>Selling Price</th>
+                  <th>Sr.No.</th>
+                  <th>Date</th>
                   <th>Net Stock</th>
-                  <th>Net Stock Value</th>
+                  <th>Stock Value</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
+              <?php
+                $select = $pdo->prepare("SELECT net_stock, stock_value, stock_date FROM tbl_stock_record WHERE stock_date BETWEEN :fromdate AND :todate");
+                $select->bindParam(':fromdate', $_POST['date_1']);
+                $select->bindParam(':todate', $_POST['date_2']);
+                $select->execute();
 
-                $prod = fetchtable('tbl_product', "product_id > 0", "stock", "ASC", "0,100", "product_id, product_code ,product_name, product_category,sell_price, stock");
-                $prod_net_stock_total = 0;
-                $prod_net_val_total = 0;
-                while ($p = mysqli_fetch_array($prod)) {
-                  $p_id = $p['product_id'];
-                  $p_code = $p['product_code'];
-                  $p_name = $p['product_name'];
-                  $p_cat = $p['product_category'];
-                  $p_sellprice = $p['sell_price'];
-                  $p_stock = $p['stock'];
-                  
-                  
-                  $p_net_value_ = $p_sellprice * $p_stock;
-                  $p_net_value = "ksh. " . number_format($p_net_value_, 2);
-                  $prod_net_stock_total += $p_stock;
-                  $prod_net_val_total += $p_net_value_;
+                $num=0;
+                while ($row = $select->fetch(PDO::FETCH_OBJ)) {
+                  $num++;
                 ?>
                   <tr>
-                    <td><?php echo $p_id; ?></td>
-                    <td><?php echo $p_code; ?></td>
-                    <td><?php echo $p_name; ?></td>
-                    <td><?php echo $p_cat; ?></td>
-                    <td><?php echo $p_sellprice; ?></td>
-                    <td><?php echo $p_stock; ?></td>
-                    <td><?php echo $p_net_value; ?></td>
+                    <td><?php echo $num; ?></td>
+                    <td><?php echo $row->stock_date; ?></td>
+                    <td><?php echo number_format($row->net_stock, 2); ?></td>
+                    <td>ksh. <?php echo number_format($row->stock_value, 2); ?></td>
                   </tr>
                 <?php
                 }
-
-                if ($prod_net_stock_total > 0 || $prod_net_val_total > 0) {
-                  echo "<tr class ='bg-blue'>
-                              <td colspan= '5'>Totals</td>
-                              <td>".number_format($prod_net_stock_total, 2) . " </td>
-                              <td>ksh. " . number_format($prod_net_val_total, 2) . " </td>
-                              </tr>";
-                }
-
                 ?>
-
               </tbody>
             </table>
           </div>

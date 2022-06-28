@@ -1,6 +1,7 @@
 <?php
-include_once 'db/connect_db.inc';
 session_start();
+include_once 'db/connect_db.inc';
+
 if ($_SESSION['username'] == "") {
   header('location:index');
 } else {
@@ -67,7 +68,7 @@ if ($_SESSION['username'] == "") {
 
       <!-- get today transactions -->
       <?php
-      $select = $pdo->prepare("SELECT count(invoice_id) as i FROM tbl_invoice WHERE order_date = CURDATE()");
+      $select = $pdo->prepare("SELECT count(invoice_id) as i FROM tbl_invoice WHERE order_date = '$date'");
       $select->execute();
       $row = $select->fetch(PDO::FETCH_OBJ);
       $invoice = $row->i;
@@ -89,7 +90,7 @@ if ($_SESSION['username'] == "") {
 
       <!-- get today income -->
       <?php
-      $select = $pdo->prepare("SELECT sum(total) as total FROM tbl_invoice WHERE order_date = CURDATE()");
+      $select = $pdo->prepare("SELECT sum(total) as total FROM tbl_invoice WHERE order_date = '$date'");
       $select->execute();
       $row = $select->fetch(PDO::FETCH_OBJ);
       $total = $row->total;

@@ -1,6 +1,8 @@
 <?php
-include_once 'db/connect_db.inc';
 session_start();
+include_once 'db/connect_db.inc';
+include_once 'php_functions/functions.php';
+
 if ($_SESSION['username'] == "") {
   header('location:index');
 } else {
@@ -10,10 +12,6 @@ if ($_SESSION['username'] == "") {
     include_once 'inc/header_all_operator.php';
   }
 }
-
-
-//error_reporting(0);
-date_default_timezone_set('Africa/Nairobi');
 
 function fill_product($pdo)
 {
@@ -93,8 +91,36 @@ if (isset($_POST['save_order'])) {
         } else {
           $update = $pdo->prepare("UPDATE tbl_product SET stock = '$rem_qty' WHERE product_id='" . $arr_product_id[$i] . "'");
           $update->execute();
-        }
 
+          ///---Begin updating tbl_stock_record table by current date
+          $prod = fetchtable('tbl_product', "product_id > 0", "product_id", "ASC", "0,500", "sell_price, stock");
+          $prod_net_stock_total = 0;
+          $prod_net_val_total = 0;
+          while ($p = mysqli_fetch_array($prod)) {
+            $p_sellprice = $p['sell_price'];
+            $p_stock = $p['stock'];
+            $p_net_value_ = $p_sellprice * $p_stock;
+            $p_net_value = "ksh. " . number_format($p_net_value_, 2);
+            $prod_net_stock_total += $p_stock;
+            $prod_net_val_total += $p_net_value_;
+            $added_date = $date;
+          }
+
+          $select = $pdo->prepare("SELECT COUNT(id) AS records, stock_date FROM tbl_stock_record WHERE stock_date = '$date'");
+          $select->execute();
+          $row = $select->fetch(PDO::FETCH_OBJ);
+          $stock_total_ = $row->records;
+          $stock_date = $row->stock_date;
+
+          if ($stock_total_ == 1) {
+            updatedb("tbl_stock_record", "net_stock=$prod_net_stock_total, stock_value=$prod_net_val_total", "stock_date = '$date'");
+          } else {
+            $fds = array('net_stock', 'stock_value', 'stock_date');
+            $vals = array($prod_net_stock_total, $prod_net_val_total, "$added_date");
+            addtodb("tbl_stock_record", $fds, $vals);
+          }
+          ///---End updating tbl_stock_record table by current date
+        }
 
         $insert = $pdo->prepare("INSERT INTO tbl_invoice_detail(invoice_id, product_id, product_code, product_name, qty, product_unit, price, total, item_profit, order_date)
             values(:invid, :productid, :productcode, :productname, :qty, :productunit, :price, :total, :item_profit, :orderdate)");
@@ -140,6 +166,8 @@ if (isset($_POST['save_order'])) {
               $cred_insert->bindParam(':cred_cust_no',  $customer_no);
               $cred_insert->bindParam(':cred_cust_amount',   $credit_amount);
               $cred_insert->execute();
+
+              session_start();
             }
           }
         }
