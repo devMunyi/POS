@@ -58,7 +58,7 @@ if ($_SESSION['username'] == "") {
           <span class="info-box-icon bg-aqua"><i class="fa fa-cubes"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Total Products</span>
+            <span class="info-box-text">Total <br> Products</span>
             <span class="info-box-number"><small><?php echo $row->t ?></small></span>
           </div>
           <!-- /.info-box-content -->
