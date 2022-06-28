@@ -31,7 +31,7 @@ if ($_SESSION['username'] == "") {
           <span class="info-box-icon bg-aqua"><i class="fa fa-archive"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Product(s) Low</span>
+            <span class="info-box-text">Product(s)<br> Low</span>
             <?php if ($total1 == true) { ?>
               <span class="info-box-number"><small><?php echo $row->total; ?></small></span>
             <?php } else { ?>
