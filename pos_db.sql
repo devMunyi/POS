@@ -190,7 +190,7 @@ CREATE TABLE `tbl_repayments` (
   `credit_balance` decimal(8,2) NOT NULL,
   `due_date` date NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'Paid'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 

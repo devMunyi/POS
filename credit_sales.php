@@ -54,6 +54,7 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Credit Sales List</h3>
+                <a onclick="modal_view('/forms/system_settings_edit.php','','Check Customer Credit Limit')" class="btn btn-info btn-sm">Check Customer Limit</a>
                 <a href="create_credit_sale" class="btn btn-success btn-sm pull-right">Add Credit Sale</a>
             </div>
             <div class="box-body">
