@@ -24,3 +24,7 @@
 <script src="scripts/main.js"></script>
 </body>
 </html>
+
+<input type="hidden" id="server_" value="https://apa-shop.herokuapp.com">
+<!-- <input type="hidden" id="server_" value="http://localhost/POS"> -->
+

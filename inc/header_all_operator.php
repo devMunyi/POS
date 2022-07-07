@@ -169,6 +169,7 @@
             <ul class="treeview-menu">
               <li><a href="credit_sales" class=""><i class="fa fa-circle-o"></i> All Credit Sales</a></li>
               <li><a href="credit_repayments" class=""><i class="fa fa-circle-o"></i> Credit Repayments</a></li>
+              <li><a href="credit-limit-check" class=""><i class="fa fa-circle-o"></i> Check Credit Limit</a></li>
               <li><a href="credit_defaulters" class=""><i class="fa fa-circle-o"></i> Credit Defaulters</a></li>
             </ul>
           </li>

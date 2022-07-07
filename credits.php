@@ -104,5 +104,5 @@
   </script>
 
  <?php
-    include_once'inc/footer_all.php';
+    include_once 'inc/footer_all.php';
  ?>
