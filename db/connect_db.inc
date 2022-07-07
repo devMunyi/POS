@@ -3,11 +3,12 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 date_default_timezone_set("Africa/Nairobi");
 
 //local db
+/*
 $cleardb_server = 'localhost'; 
 $cleardb_db   = 'pos_db'; // Your database name.
 $cleardb_username = 'root';             // Your database username.
 $cleardb_password = '';
-
+*/
 
 //Get Heroku ClearDB connection information
 $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));

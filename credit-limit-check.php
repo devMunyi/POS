@@ -53,23 +53,21 @@ if (isset($_GET['id'])) {
                     <div class='col-sm-6'><input type='text' class='form-control' id='cust_no_' placeholder='Enter phone number... format 01XXXXXXXX or 07XXXXXXXX' required></div>
                     <div class='col-sm-6'><button onclick="creditor_details()" title="Click to search" class="btn btn-success btn-sm">Run Search</button></div>
                 </div>
-                <div class="row" id="search-table">
-                    <div style="overflow-x:auto;">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Customer Phone</th>
-                                    <th>Limit Amount</th>
-                                    <th>Date Created</th>
-                                    <th>Date Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody id="creditor">
-                                
-                            </tbody>
-                        </table>
-                    </div>
+                <div style="overflow-x:auto; margin-top:20px;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Customer Phone</th>
+                                <th>Limit Amount</th>
+                                <th>Date Created</th>
+                                <th>Date Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody id="creditor">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

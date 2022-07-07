@@ -2004,11 +2004,64 @@ function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function creditor_details() {
-  // if($("cust_no_").val().trim()){
+// function creditor_details() {
+//   // if($("cust_no_").val().trim()){
 
-  // }
-  console.log($("#cust_no_").val());
+//   // }
+//   console.log($("#cust_no_").val());
+//   let cust_no = $("#cust_no_").val().trim();
+//   if (!cust_no.length > 0) {
+//     alert("customer number is required");
+//     return;
+//   }
+
+//   if (cust_no.length < 10) {
+//     alert("Invalid phone number");
+//     return;
+//   }
+
+//   if (isNumeric(cust_no)) {
+//   } else {
+//     alert("Invalid phone number");
+//     return;
+//   }
+
+//   let where = $("_where_").val();
+//   if (!where) {
+//     where = "credit_id > 0";
+//   }
+//   let offset = $("#_offset_").val();
+//   if (!offset) {
+//     offset = 0;
+//   }
+//   let rpp = $("#_rpp_").val();
+//   if (!rpp) {
+//     rpp = 1;
+//   }
+
+//   let orderby = "credit_id";
+//   let dir = "desc";
+
+//   let params =
+//     "cust_no=" +
+//     cust_no +
+//     "&where_=" +
+//     where +
+//     "&offset=" +
+//     offset +
+//     "&rpp=" +
+//     rpp +
+//     "&orderby=" +
+//     orderby +
+//     "&dir=" +
+//     dir;
+//   dbaction("/jresources/creditor-details", params, function (feed) {
+//     console.log(params);
+//     $("#creditor").html(feed);
+//   });
+// }
+
+function creditor_details() {
   let cust_no = $("#cust_no_").val().trim();
   if (!cust_no.length > 0) {
     alert("customer number is required");
@@ -2026,37 +2079,25 @@ function creditor_details() {
     return;
   }
 
-  let where = $("_where_").val();
-  if (!where) {
-    where = "credit_id > 0";
-  }
-  let offset = $("#_offset_").val();
-  if (!offset) {
-    offset = 0;
-  }
-  let rpp = $("#_rpp_").val();
-  if (!rpp) {
-    rpp = 1;
-  }
+  let jso = {};
+  let query = "?cust_no=" + cust_no;
+  let row = "<td colspan='5'>No record found</td>";
 
-  let orderby = "credit_id";
-  let dir = "desc";
+  crudaction(jso, "/api/credits/read_one.php" + query, "GET", function (feed) {
+    let data = feed.data;
+    if (feed.success == false) {
+      alert("No record found");
+    }
 
-  let params =
-    "cust_no=" +
-    cust_no +
-    "&where_=" +
-    where +
-    "&offset=" +
-    offset +
-    "&rpp=" +
-    rpp +
-    "&orderby=" +
-    orderby +
-    "&dir=" +
-    dir;
-  dbaction("/jresources/creditor-details", params, function (feed) {
-    console.log(params);
-    $("#creditor").html(feed);
+    if (feed.success == true) {
+      row = `<td>${data.credit_id}</td>
+        <td>${data.customer_no}</td>
+        <td>ksh. ${data.credit_amount}</td>
+        <td>${data.date_created}</td>
+        <td>${data.date_updated}</td>
+        `;
+    }
+
+    $("#creditor").html(row);
   });
 }
