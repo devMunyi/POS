@@ -50,6 +50,9 @@
   <!-- <link rel="stylesheet" href="bower_components2/jvectormap/jquery-jvectormap.css"> -->
   <!--End of trial-->
 
+  <!--  Select2 CSS  -->
+  <link href="dist/css/select2.min.css" rel="stylesheet" /> 
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
@@ -68,6 +71,7 @@
 
   <!-- chart Js -->
   <script src="chartjs/dist/Chart.min.js"></script>
+  
 </head>
 
 <body class="hold-transition skin-green sidebar-mini">

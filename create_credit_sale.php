@@ -431,6 +431,9 @@ if (isset($_POST['save_order'])) {
         })
       })
 
+      // Initialize select2
+      $(".productid").select2();
+
     })
 
     $(document).on('click', '.btn-remove', function() {

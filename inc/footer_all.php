@@ -15,6 +15,7 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- Chart.js -->
 <script src="dist/js/chart.js"></script>
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- DataTables -->
@@ -22,6 +23,8 @@
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="scripts/common.js"></script>
 <script src="scripts/main.js"></script>
+<!-- Select2 JS --> 
+<script src="dist/js/select2.min.js"></script>
 </body>
 </html>
 

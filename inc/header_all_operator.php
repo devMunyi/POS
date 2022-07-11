@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
     <link rel="stylesheet" href="dist/css/skins/skin-blue-light.min.css">
+    <!--  Select2 CSS  -->
+    <link href="dist/css/select2.min.css" rel="stylesheet" />
 
     <!--Trial-->
     <!--Bootsrap style sheet-->
