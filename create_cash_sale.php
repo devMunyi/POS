@@ -360,7 +360,7 @@ if (isset($_POST['save_order'])) {
       html += '<tr>';
       html += '<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
       html += '<td><select id="" class="form-control productid" name="productid[]" style="width:200px;" required><option value="">--Select Product--</option><?php
-                                                                                                                                                                    echo fill_product($pdo) ?></select></td>';
+                                                                                                                                                              echo fill_product($pdo) ?></select></td>';
       html += '<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
       html += '<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
       html += '<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
@@ -404,7 +404,14 @@ if (isset($_POST['save_order'])) {
       })
 
       // Initialize select2
-      $(".productid").select2();
+      var placeholder = "&#xf002 Select a place";
+      $(".productid").select2({
+          placeholder: 'Search product...',
+        }
+
+      );
+
+
 
     })
 

@@ -432,7 +432,9 @@ if (isset($_POST['save_order'])) {
       })
 
       // Initialize select2
-      $(".productid").select2();
+      $(".productid").select2({
+          placeholder: 'Search product...',
+        });
 
     })
 
