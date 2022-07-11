@@ -20,6 +20,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 
+
 // Connect to DB
 $con = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
 

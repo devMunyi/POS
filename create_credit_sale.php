@@ -22,7 +22,7 @@ function fill_product($pdo)
   $result = $select->fetchAll();
 
   foreach ($result as $row) {
-    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] . '<b>(' . $row["product_code"] . ')</b>' . '</option>';
+    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] . '<br>(' . $row["product_code"] . ') - <b>ksh.' . $row["sell_price"] . '</b></br>' . '</option>';
   }
 
   return $output;
@@ -262,12 +262,12 @@ if (isset($_POST['save_order'])) {
                   <th>Name</th>
                   <th></th>
                   <th>Stock</th>
-                  <th>Price</th>
+                  <th></th>
                   <th></th>
                   <th>Quantity</th>
                   <th>Unit</th>
                   <th>Total</th>
-                  <th>Item Profit</th>
+                  <th></th>
                   <th>
                     <button type="button" name="addOrder" class="btn btn-success btn-sm btn_addOrder" required><span>
                         <i class="fa fa-plus"></i>
@@ -391,16 +391,16 @@ if (isset($_POST['save_order'])) {
       var html = '';
       html += '<tr>';
       html += '<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-      html += '<td><select class="form-control productid" name="productid[]" style="width:200px;" required><option value="">--Select Product--</option><?php
+      html += '<td><select class="form-control productid" name="productid[]" style="width:300px;" required><option value="">--Select Product--</option><?php
                                                                                                                                                         echo fill_product($pdo) ?></select></td>';
-      html += '<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productname" style="width:100px;" name="productname[]" readonly></td>';
       html += '<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
-      html += '<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control productprofit" style="width:150px;" name="productprofit[]" readonly></td>';
-      html += '<td><input type="text" class="form-control quantity_product" style="width:100px;" name="quantity[]" required></td>';
-      html += '<td><input type="text" class="form-control productunit" style="width:100px;" name="productunit[]" readonly></td>';
-      html += '<td><input type="text" class="form-control producttotal" style="width:150px;" name="producttotal[]" readonly></td>';
-      html += '<td><input type="text" class="form-control profit_" style="width:150px;" name="item_profit[]" id="profit_" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productprofit" style="width:100px;" name="productprofit[]" readonly></td>';
+      html += '<td><input type="text" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
+      html += '<td><input type="text" class="form-control productunit" style="width:80px;" name="productunit[]" readonly></td>';
+      html += '<td><input type="text" class="form-control producttotal" style="width:100px;" name="producttotal[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control profit_" style="width:100px;" name="item_profit[]" id="profit_" readonly></td>';
       html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>'
 
       $('#myOrder').append(html);
@@ -433,8 +433,8 @@ if (isset($_POST['save_order'])) {
 
       // Initialize select2
       $(".productid").select2({
-          placeholder: 'Search product...',
-        });
+        placeholder: 'Search product...',
+      });
 
     })
 
