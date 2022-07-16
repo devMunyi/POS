@@ -1,13 +1,13 @@
 <?php
-    include_once'db/connect_db.inc';
+    include_once 'db/connect_db.inc';
     session_start();
     if($_SESSION['username']==""){
         header('location:index');
     }else{
         if($_SESSION['role']=="Admin"){
-          include_once'inc/header_all.php';
+          include_once 'inc/header_all.php';
         }else{
-            include_once'inc/header_all_operator.php';
+            include_once 'inc/header_all_operator.php';
         }
     }
 
@@ -77,7 +77,7 @@
                                 <tr>
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
-                                <td><?php echo $row->order_date; ?></td>
+                                <td><?php echo $row->order_date .' '. $row->time_order; ?></td>
                                 <td>ksh. <?php echo number_format($row->total, 2); ?></td>
                                 <td><?php echo $row->sale_type ?></td>
                                 <td>

@@ -162,7 +162,8 @@
           <li><a href="./cash_sales"><i class="fa fa-shopping-cart"></i> <span>Cash Transactions</span></a></li>
           <li class="treeview">
             <a href="#">
-              <i class="fa fa-shopping-cart"></i>
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+              <!-- <i class="fa fa-shopping-cart"></i> -->
               <span>Credit Transactions</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>

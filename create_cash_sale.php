@@ -22,7 +22,7 @@ function fill_product($pdo)
   $result = $select->fetchAll();
 
   foreach ($result as $row) {
-    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] . '<br>(' . $row["product_code"] . ') - <span style="font-weight: bold;">ksh.'.$row["sell_price"].'</span><br/>' . '</option>';
+    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] .'(code '.$row["product_code"].')- available stock ' . $row["stock"] . ' -  (Each '.$row["sell_price"].' ksh)' . '</option>';
   }
 
   return $output;
@@ -185,7 +185,7 @@ if (isset($_POST['save_order'])) {
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Transaction
+      Cash Transaction
     </h1>
   </section>
 
@@ -240,15 +240,15 @@ if (isset($_POST['save_order'])) {
                   <th></th>
                   <th>Name</th>
                   <th></th>
-                  <th>Stock</th>
+                  <th></th>
                   <th></th>
                   <th></th>
                   <th>Quantity</th>
-                  <th>Unit</th>
+                  <th></th>
                   <th>Total</th>
                   <th></th>
                   <th>
-                    <button type="button" name="addOrder" class="btn btn-success btn-sm btn_addOrder" required><span>
+                    <button title="Add" type="button" name="addOrder" class="btn btn-success btn-sm btn_addOrder" required><span>
                         <i class="fa fa-plus"></i>
                       </span></button>
                   </th>
@@ -291,13 +291,13 @@ if (isset($_POST['save_order'])) {
                   </div>
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-5" style="display: none;">
                   <label>Profit Total</label>
                   <div class="input-group">
                     <div class="input-group-addon">
                       <span>ksh</span>
                     </div>
-                    <input type="text" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
+                    <input type="hidden" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
                   </div>
                 </div>
               </div>
@@ -309,7 +309,7 @@ if (isset($_POST['save_order'])) {
                 <div class="input-group-addon">
                   <span>ksh</span>
                 </div>
-                <input type="text" class="form-control pull-right" name="paid" id="paid" required>
+                <input type="number" min="1" class="form-control pull-right" name="paid" id="paid" required>
               </div>
               <!-- /.input group -->
             </div>
@@ -325,7 +325,6 @@ if (isset($_POST['save_order'])) {
             </div>
           </div>
         </div>
-
         <div class="box-footer" align="center">
           <input type="submit" name="save_order" value="Save Transaction" class="btn btn-success">
           <a href="sale" class="btn btn-warning">Return</a>
@@ -359,16 +358,15 @@ if (isset($_POST['save_order'])) {
       var html = '';
       html += '<tr>';
       html += '<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-      html += '<td><select id="" class="form-control productid" name="productid[]" style="width:250px;" required><option value="">--Select Product--</option><?php
-                                                                                                                                                              echo fill_product($pdo) ?></select></td>';
-      html += '<td><input type="hidden" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
-      html += '<td><input type="text" class="form-control productstock" style="width:80px;" name="productstock[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control productprofit" style="width:100px;" name="productprofit[]" readonly></td>';
-      html += '<td><input type="text" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
-      html += '<td><input type="text" class="form-control productunit" style="width:80px;" name="productunit[]" readonly></td>';
+      html += '<td><select id="" class="form-control productid" name="productid[]" style="width:250px;" required><option value="">--Select Product--</option><?php                                                                                                                                                        echo fill_product($pdo) ?></select></td>';
+      html += '<td><input type="hidden" class="form-control productname" style="width:20px;" name="productname[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productstock" style="width:20px;" name="productstock[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productprice" style="width:20px;" name="productprice[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productprofit" style="width:20px;" name="productprofit[]" readonly></td>';
+      html += '<td><input  type="number" min="1" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
+      html += '<td><input type="hidden" class="form-control productunit" style="width:20px;" name="productunit[]" readonly></td>';
       html += '<td><input type="text" class="form-control producttotal" style="width:100px;" name="producttotal[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control profit_" style="width:150px;" name="item_profit[]" id="profit_" readonly></td>';
+      html += '<td><input type="hidden" class="form-control profit_" name="item_profit[]" id="profit_" readonly></td>';
       html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>'
 
       $('#myOrder').append(html);
@@ -424,6 +422,8 @@ if (isset($_POST['save_order'])) {
     })
 
     $("#myOrder").delegate(".quantity_product", "keyup change", function() {
+      $("#paid").val("");
+
       var quantity = $(this);
       var tr = $(this).parent().parent();
       if ((quantity.val() - 0) > (tr.find(".productstock").val() - 0)) {
@@ -477,6 +477,10 @@ if (isset($_POST['save_order'])) {
       $("#net_profit").val(net_profit);
       $("#due").val(due);
     }
+
+    // $("#due").delegate("#total", "change", function() {
+    //   $("#total").val(net_total);
+    // })
 
     $("#paid").change(function() {
       let totals = $("#total").val();

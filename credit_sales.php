@@ -83,7 +83,7 @@
                                 <tr>
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->customer_no; ?></td>
-                                <td><?php echo $row->order_date; ?></td>
+                                <td><?php echo $row->order_date .' '. $row->time_order; ?></td>
                                 <td>ksh. <?php echo number_format($row->total,2); ?></td>
                                 <td><?php echo $row->sale_type ?></td>
                                 <td>ksh. <?php echo number_format($row->credit_balance, 2); ?></td>

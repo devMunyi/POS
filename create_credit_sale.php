@@ -22,7 +22,7 @@ function fill_product($pdo)
   $result = $select->fetchAll();
 
   foreach ($result as $row) {
-    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] . '<br>(' . $row["product_code"] . ') - <b>ksh.' . $row["sell_price"] . '</b></br>' . '</option>';
+    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] . '(code ' . $row["product_code"] . ')- available stock ' . $row["stock"] . ' -  (Each ' . $row["sell_price"] . ' ksh)' . '</option>';
   }
 
   return $output;
@@ -206,7 +206,7 @@ if (isset($_POST['save_order'])) {
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Transaction
+      Credit Transaction
     </h1>
   </section>
 
@@ -261,11 +261,11 @@ if (isset($_POST['save_order'])) {
                   <th></th>
                   <th>Name</th>
                   <th></th>
-                  <th>Stock</th>
+                  <th></th>
                   <th></th>
                   <th></th>
                   <th>Quantity</th>
-                  <th>Unit</th>
+                  <th></th>
                   <th>Total</th>
                   <th></th>
                   <th>
@@ -315,7 +315,7 @@ if (isset($_POST['save_order'])) {
                 <div class="input-group-addon">
                   <span>ksh</span>
                 </div>
-                <input type="text" class="form-control pull-right" name="paid" id="paid" required>
+                <input type="number" min="0" class="form-control pull-right" name="paid" id="paid" required>
               </div>
               <!-- /.input group -->
             </div>
@@ -391,16 +391,15 @@ if (isset($_POST['save_order'])) {
       var html = '';
       html += '<tr>';
       html += '<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-      html += '<td><select class="form-control productid" name="productid[]" style="width:300px;" required><option value="">--Select Product--</option><?php
-                                                                                                                                                        echo fill_product($pdo) ?></select></td>';
-      html += '<td><input type="hidden" class="form-control productname" style="width:100px;" name="productname[]" readonly></td>';
-      html += '<td><input type="text" class="form-control productstock" style="width:100px;" name="productstock[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control productprofit" style="width:100px;" name="productprofit[]" readonly></td>';
-      html += '<td><input type="text" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
-      html += '<td><input type="text" class="form-control productunit" style="width:80px;" name="productunit[]" readonly></td>';
+      html += '<td><select id="" class="form-control productid" name="productid[]" style="width:250px;" required><option value="">--Select Product--</option><?php echo fill_product($pdo) ?></select></td>';
+      html += '<td><input type="hidden" class="form-control productname" style="width:20px;" name="productname[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productstock" style="width:20px;" name="productstock[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productprice" style="width:20px;" name="productprice[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control productprofit" style="width:20px;" name="productprofit[]" readonly></td>';
+      html += '<td><input  type="number" min="1" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
+      html += '<td><input type="hidden" class="form-control productunit" style="width:20px;" name="productunit[]" readonly></td>';
       html += '<td><input type="text" class="form-control producttotal" style="width:100px;" name="producttotal[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control profit_" style="width:100px;" name="item_profit[]" id="profit_" readonly></td>';
+      html += '<td><input type="hidden" class="form-control profit_" name="item_profit[]" id="profit_" readonly></td>';
       html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>'
 
       $('#myOrder').append(html);
@@ -445,6 +444,7 @@ if (isset($_POST['save_order'])) {
     })
 
     $("#myOrder").delegate(".quantity_product", "keyup change", function() {
+      $("#paid").val(""); //clean up the quantity
       var quantity = $(this);
       var tr = $(this).parent().parent();
       if ((quantity.val() - 0) > (tr.find(".productstock").val() - 0)) {
