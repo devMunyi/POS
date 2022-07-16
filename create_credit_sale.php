@@ -425,7 +425,9 @@ if (isset($_POST['save_order'])) {
             tr.find(".quantity_product").val(0);
             tr.find(".producttotal").val(tr.find(".quantity_product").val() * tr.find(".productprice").val());
             tr.find(".profit_").val(tr.find(".quantity_product").val() * tr.find(".productprofit").val());
-            calculate(0, 0);
+
+            let paid = $("#paid").val();
+            calculate(paid);
           }
         })
       })
@@ -439,12 +441,12 @@ if (isset($_POST['save_order'])) {
 
     $(document).on('click', '.btn-remove', function() {
       $(this).closest('tr').remove();
-      calculate(0, 0);
-      $("#paid").val(0);
+      let paid = $("#paid").val();
+      calculate(paid);
     })
 
     $("#myOrder").delegate(".quantity_product", "keyup change", function() {
-      $("#paid").val(""); //clean up the quantity
+      let paid = $("#paid").val(); //clean up the quantity
       var quantity = $(this);
       var tr = $(this).parent().parent();
       if ((quantity.val() - 0) > (tr.find(".productstock").val() - 0)) {
@@ -452,11 +454,11 @@ if (isset($_POST['save_order'])) {
         quantity.val(1);
         tr.find(".producttotal").val(quantity.val() * tr.find(".productprice").val());
         tr.find(".profit_").val(quantity.val() * tr.find(".productprofit").val());
-        calculate(0, 0);
+        calculate(paid);
       } else {
         tr.find(".producttotal").val(quantity.val() * tr.find(".productprice").val());
         tr.find(".profit_").val(quantity.val() * tr.find(".productprofit").val());
-        calculate(0, 0);
+        calculate(paid);
       }
     })
 

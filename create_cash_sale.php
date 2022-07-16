@@ -239,21 +239,20 @@ if (isset($_POST['save_order'])) {
                 <tr>
                   <th></th>
                   <th>Name</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
                   <th>Quantity</th>
-                  <th></th>
                   <th>Total</th>
-                  <th></th>
                   <th>
                     <button title="Add" type="button" name="addOrder" class="btn btn-success btn-sm btn_addOrder" required><span>
                         <i class="fa fa-plus"></i>
                       </span></button>
                   </th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
                 </tr>
-
               </thead>
               <tbody>
 
@@ -291,13 +290,13 @@ if (isset($_POST['save_order'])) {
                   </div>
                 </div>
 
-                <div class="col-md-5" style="display: none;">
+                <div class="col-md-5" style="display: block;">
                   <label>Profit Total</label>
                   <div class="input-group">
                     <div class="input-group-addon">
                       <span>ksh</span>
                     </div>
-                    <input type="hidden" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
+                    <input type="text" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
                   </div>
                 </div>
               </div>
@@ -359,19 +358,22 @@ if (isset($_POST['save_order'])) {
       html += '<tr>';
       html += '<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
       html += '<td><select id="" class="form-control productid" name="productid[]" style="width:250px;" required><option value="">--Select Product--</option><?php                                                                                                                                                        echo fill_product($pdo) ?></select></td>';
+
+      html += '<td><input  type="number" min="1" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
+      html += '<td><input type="text" class="form-control producttotal" style="width:100px;" name="producttotal[]" readonly></td>';
+      html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>';
+      html += '<td><input type="hidden" class="form-control productunit" style="width:20px;" name="productunit[]" readonly></td>';
+      html += '<td><input type="hidden" class="form-control profit_" name="item_profit[]" id="profit_" readonly></td>';
       html += '<td><input type="hidden" class="form-control productname" style="width:20px;" name="productname[]" readonly></td>';
       html += '<td><input type="hidden" class="form-control productstock" style="width:20px;" name="productstock[]" readonly></td>';
       html += '<td><input type="hidden" class="form-control productprice" style="width:20px;" name="productprice[]" readonly></td>';
       html += '<td><input type="hidden" class="form-control productprofit" style="width:20px;" name="productprofit[]" readonly></td>';
-      html += '<td><input  type="number" min="1" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
-      html += '<td><input type="hidden" class="form-control productunit" style="width:20px;" name="productunit[]" readonly></td>';
-      html += '<td><input type="text" class="form-control producttotal" style="width:100px;" name="producttotal[]" readonly></td>';
-      html += '<td><input type="hidden" class="form-control profit_" name="item_profit[]" id="profit_" readonly></td>';
-      html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>'
 
       $('#myOrder').append(html);
 
       $('.productid').on('change', function(e) {
+        $("#paid").val("");
+
         var productid = this.value;
         var tr = $(this).parent().parent();
         $.ajax({
@@ -396,7 +398,9 @@ if (isset($_POST['save_order'])) {
             tr.find(".quantity_product").val(0);
             tr.find(".producttotal").val(roundNum(tr.find(".quantity_product").val() * tr.find(".productprice").val(), 2));
             tr.find(".profit_").val(roundNum(tr.find(".quantity_product").val() * tr.find(".productprofit").val(), 2));
-            calculate(0, 0);
+            
+            let paid = $("#paid").val();
+            calculate(paid);
           }
         })
       })
@@ -417,12 +421,14 @@ if (isset($_POST['save_order'])) {
 
     $(document).on('click', '.btn-remove', function() {
       $(this).closest('tr').remove();
-      calculate(0, 0);
-      $("#paid").val(0.00);
+      let paid = $("#paid").val();
+      calculate(paid);
+     
     })
 
     $("#myOrder").delegate(".quantity_product", "keyup change", function() {
       $("#paid").val("");
+      let paid = $("#paid").val();
 
       var quantity = $(this);
       var tr = $(this).parent().parent();
@@ -439,7 +445,7 @@ if (isset($_POST['save_order'])) {
         */
         tr.find(".producttotal").val(roundNum(quantity.val() * tr.find(".productprice").val(), 2));
         tr.find(".profit_").val(roundNum(quantity.val() * tr.find(".productprofit").val(), 2));
-        calculate(0, 0);
+        calculate(paid);
       } else {
         /*let totals3_ = quantity.val() * $(".productprice").val();
           let profit3_ = quantity.val() * $(".productprofit").val();
@@ -451,7 +457,7 @@ if (isset($_POST['save_order'])) {
           */
         tr.find(".producttotal").val(roundNum(quantity.val() * tr.find(".productprice").val(), 2));
         tr.find(".profit_").val(roundNum(quantity.val() * tr.find(".productprofit").val(), 2));
-        calculate(0, 0);
+        calculate(paid);
       }
     })
 
@@ -494,6 +500,15 @@ if (isset($_POST['save_order'])) {
 
     function roundNum(value, decimals) {
       return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals).toFixed(decimals);
+    }
+
+    function saleValidate(){
+      let totals = $("#total").val();
+      let paid = $("#paid").val();
+      if ((parseFloat(paid)) < (parseFloat(totals))) {
+        swal("Warning", 'Cash received must be greater or equal to sale total', "warning");
+        return;
+      }
     }
 
     let proceed = '<?php echo $proceed; ?>';
