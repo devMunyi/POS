@@ -290,13 +290,13 @@ if (isset($_POST['save_order'])) {
                   </div>
                 </div>
 
-                <div class="col-md-5" style="display: block;">
+                <div class="col-md-5" style="display: none;">
                   <label>Profit Total</label>
                   <div class="input-group">
                     <div class="input-group-addon">
                       <span>ksh</span>
                     </div>
-                    <input type="text" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
+                    <input type="hidden" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
                   </div>
                 </div>
               </div>
