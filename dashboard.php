@@ -114,7 +114,7 @@ if ($_SESSION['username'] == "") {
     <div class="col-md-offset-1 col-md-10">
       <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Sale Summary In Last 30 days</h3>
+          <h3 class="box-title">Sale Summary <?php echo $thismonthfullname; ?></h3>
         </div>
         <div class="box-body">
           <div class="">
@@ -137,8 +137,10 @@ if ($_SESSION['username'] == "") {
                 <tbody>
                   <?php
                   $no = 1;
+                  $start_date = "$thisyear-$thismonth-01";
+                  $end_date = $date;
                   $select = $pdo->prepare("SELECT product_code,product_name,price,product_unit,sum(qty) as q, sum(qty*price) as total, sum(item_profit) as item_profit FROM
-                          tbl_invoice_detail WHERE DATEDIFF(order_date, \"$date\") <= 30 AND status =\"Paid\" GROUP BY product_id ORDER BY sum(qty) DESC LIMIT 0,30");
+                          tbl_invoice_detail WHERE order_date BETWEEN '$start_date' AND '$end_date' AND status =\"Paid\" GROUP BY product_id ORDER BY sum(qty) DESC LIMIT 0,30");
                   $select->execute();
                   while ($row = $select->fetch(PDO::FETCH_OBJ)) {
                   ?>

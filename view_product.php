@@ -67,7 +67,7 @@ if ($_SESSION['username'] == "") {
                 }
                 ?>
                 <div class="">
-                  <a href="product" class="btn btn-warning">Return</a>
+                  <a href="current-stock" class="btn btn-warning">Return</a>
                 </div>
               </div>
             </div>

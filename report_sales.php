@@ -66,7 +66,6 @@ if ($_SESSION['username'] == "") {
           $profit = $row->profit;
           $invoice = $row->invoice;
 
-
           ?>
 
           <div class="row">

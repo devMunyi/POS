@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once 'db/connect_db.inc';
-include_once 'php_functions/functions.php';
+include_once ('db/connect_db.inc');
+include_once ('php_functions/functions.php');
+include_once ('php_functions/functions_v2.php');
 
 if ($_SESSION['username'] == "") {
     header('location:index.php');
@@ -13,16 +14,32 @@ if ($_SESSION['username'] == "") {
     }
 }
 
+$purchase_statuses = [
+    0 => ['name' => 'Deleted', 'color_code' => '#ed143d', 'status' => 1],
+    1 => ['name' => 'Pending', 'color_code' => '#ff8c00', 'status' => 1],
+    2 => ['name' => 'Approved', 'color_code' => '#1e90ff', 'status' => 1]
+];
+
 //error_reporting(0);
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $delete = $pdo->prepare("DELETE FROM tbl_product WHERE product_id=" . $id);
+    $delete = $pdo->prepare("DELETE FROM tbl_purchases WHERE product_id=" . $id);
 
     if ($delete->execute()) {
+
+        $user_id = $_SESSION['user_id'] ?? 0;
+        $username = $_SESSION['username'] ?? '';
+        $event_details = "Product was deleted by $username, user_id => $user_id";
+
+        $fds = array('tbl', 'fld', 'event_details', 'event_date', 'event_by', 'status');
+        $vals = array('tbl_purchases', $id, "$event_details", "$fulldate", $user_id, 1);
+        addtodb_v2('o_events', $fds, $vals);
+
+
         ///---Begin updating tbl_stock_record table by current date
-        $prod = fetchtable('tbl_product', "product_id > 0", "product_id", "ASC", "0,500", "sell_price, stock");
+        $prod = fetchtable('tbl_purchases', "product_id > 0", "product_id", "ASC", "0,500", "sell_price, stock");
         $prod_net_stock_total = 0;
         $prod_net_val_total = 0;
         while ($p = mysqli_fetch_array($prod)) {
@@ -42,11 +59,12 @@ if (isset($_GET['id'])) {
         $stock_date = $row->stock_date;
 
         if ($stock_total_ == 1) {
-            updatedb("tbl_stock_record", "net_stock=$prod_net_stock_total, stock_value=$prod_net_val_total", "stock_date = '$date'");
+            // updatedb("tbl_stock_record", "net_stock=$prod_net_stock_total, stock_value=$prod_net_val_total", "stock_date = '$date'");
         } else {
-            $fds = array('net_stock', 'stock_value', 'stock_date');
-            $vals = array($prod_net_stock_total, $prod_net_val_total, "$added_date");
-            addtodb("tbl_stock_record", $fds, $vals);
+            // $fds = array('net_stock', 'stock_value', 'stock_date');
+            // $vals = array($prod_net_stock_total, $prod_net_val_total, "$added_date");
+            // addtodb_v2()
+            // addtodb("tbl_stock_record", $fds, $vals);
         }
         ///---End updating tbl_stock_record table by current date
 
@@ -76,8 +94,8 @@ if (isset($_GET['id'])) {
     <section class="content container-fluid">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">Product List</h3>
-                <a href="add_product" class="btn btn-success btn-sm pull-right">Add Product</a>
+                <h3 class="box-title">Purchases List</h3>
+                <a href="add_product" class="btn btn-success btn-sm pull-right">Add Purchase</a>
             </div>
             <div class="box-body">
                 <div style="overflow-x:auto;">
@@ -90,14 +108,17 @@ if (isset($_GET['id'])) {
                                 <th>Orginal Price</th>
                                 <th>Selling Price</th>
                                 <th>Expected Profit</th>
-                                <th>Stock</th>
+                                <th>Quantity</th>
+                                <th>Recorded At</th>
+                                <th>Recorded By</th>
                                 <th>Action</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 1;
-                            $select = $pdo->prepare("SELECT * FROM tbl_product");
+                            $select = $pdo->prepare("SELECT p.product_id, p.product_code, p.product_name, p.purchase_price, p.sell_price, p.product_profit, p.stock, p.min_stock, p.product_unit, u.username AS recorded_by, p.added_at_rm_time, p.status FROM tbl_purchases p LEFT JOIN tbl_user u ON u.user_id = p.added_by");
                             $select->execute();
                             while ($row = $select->fetch(PDO::FETCH_OBJ)) {
                             ?>
@@ -118,13 +139,22 @@ if (isset($_GET['id'])) {
                                         <span class="label label-default"><?php echo $row->product_unit; ?></span>
                                     </td>
                                     <td>
+                                        <?php echo $row->added_at_rm_time . "<br/>" .fancydate($row->added_at_rm_time); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row->recorded_by; ?>
+                                    </td>
+                                    <td>
                                         <a href="view_product?id=<?php echo $row->product_id; ?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
                                         <a href="edit_product?id=<?php echo $row->product_id; ?>" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                                         <?php if ($_SESSION['role'] == "Admin") { ?>
-                                            <a href="product?id=<?php echo $row->product_id; ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                            <a href="purchases?id=<?php echo $row->product_id; ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                         <?php
                                         }
                                         ?>
+                                    </td>
+                                    <td>
+                                        <label class='label' style='background-color: <?php echo $purchase_statuses[$row->status]['color_code']; ?>'><?php echo $purchase_statuses[$row->status]['name']; ?></label>
                                     </td>
                                 </tr>
                             <?php

@@ -143,7 +143,21 @@
           <li><a href="./dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
           <li><a href="./category"><i class="fa fa-list-alt"></i> <span>Category</span></a></li>
           <li><a href="./unit"><i class="fa fa-balance-scale"></i> <span>Units</span></a></li>
-          <li><a href="./product"><i class="fa fa-archive"></i> <span>Products</span></a></li>
+          <!-- <li><a href="./product"><i class="fa fa-archive"></i> <span>Products</span></a></li> -->
+          <li class="treeview">
+            <a href="#">
+            
+              <i class="fa fa-shopping-cart"></i>
+              <span>Products</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="./current-stock" class=""><i class="fa fa-circle-o"></i>Current Stock</a></li>
+              <li><a href="./purchases" class=""><i class="fa fa-circle-o"></i> Purchases</a></li>
+            </ul>
+          </li>
           <li><a href="./register"><i class="fa fa-users"></i> <span>Manage Users</span></a></li>
           <!-- <li><a href="./credits"><i class="fa fa-users"></i> <span>Credits</span></a></li> -->
          
