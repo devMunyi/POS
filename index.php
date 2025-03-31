@@ -1,6 +1,6 @@
 <?php
-include_once ('db/connect_db.inc');
 session_start();
+include_once ('db/connect_db.inc');
 if(isset($_POST['btn_login'])){
 
     $username = $_POST['username'];

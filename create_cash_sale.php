@@ -22,7 +22,7 @@ function fill_product($pdo)
   $result = $select->fetchAll();
 
   foreach ($result as $row) {
-    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] .'(code '.$row["product_code"].')- available stock ' . $row["stock"] . ' -  (Each '.$row["sell_price"].' ksh)' . '</option>';
+    $output .= '<option value="' . $row['product_id'] . '">' . $row["product_name"] . '(code ' . $row["product_code"] . ')- available stock ' . $row["stock"] . ' -  (Each ' . $row["sell_price"] . ' ksh)' . '</option>';
   }
 
   return $output;
@@ -40,14 +40,14 @@ if (isset($_POST['save_order'])) {
   $customer_no = $_POST['customer_no'];
 
 
-  $arr_product_id =  $_POST['productid'];
+  $arr_product_id = $_POST['productid'];
   $arr_product_code = $_POST['productcode'];
   $arr_product_name = $_POST['productname'];
   $arr_product_stock = $_POST['productstock'];
   $arr_product_qty = $_POST['quantity'];
   $arr_product_unit = $_POST['productunit'];
   $arr_product_price = $_POST['productprice'];
-  $arr_product_total =  $_POST['producttotal'];
+  $arr_product_total = $_POST['producttotal'];
   $arr_item_profit = $_POST['item_profit'];
 
   if ($arr_product_code == "") {
@@ -63,8 +63,8 @@ if (isset($_POST['save_order'])) {
         values(:name, :orderdate, :timeorder, :total, :sale_profit, :paid, :cash_balance, :sale_type, :customer_no)");
 
     $insert->bindParam(':name', $cashier_name);
-    $insert->bindParam(':orderdate',  $order_date);
-    $insert->bindParam(':timeorder',  $order_time);
+    $insert->bindParam(':orderdate', $order_date);
+    $insert->bindParam(':timeorder', $order_time);
     $insert->bindParam(':total', $total);
     $insert->bindParam(':sale_profit', $sale_profit);
     $insert->bindParam(':paid', $paid);
@@ -75,7 +75,10 @@ if (isset($_POST['save_order'])) {
     $insert->execute();
 
     $invoice_id = $pdo->lastInsertId();
-    if ($invoice_id != null) {
+
+    echo json_encode("invoice_id ==> " . $invoice_id);
+
+    if (isset($invoice_id) && $invoice_id > 0) {
       for ($i = 0; $i < count($arr_product_id); $i++) {
 
         $rem_qty = $arr_product_stock[$i] - $arr_product_qty[$i];
@@ -125,55 +128,63 @@ if (isset($_POST['save_order'])) {
         $insert = $pdo->prepare("INSERT INTO tbl_invoice_detail(invoice_id, product_id, product_code, product_name, qty, product_unit, price, total, item_profit, order_date)
             values(:invid, :productid, :productcode, :productname, :qty, :productunit, :price, :total, :item_profit, :orderdate)");
 
-        $insert->bindParam(':invid',  $invoice_id);
-        $insert->bindParam(':productid',   $arr_product_id[$i]);
-        $insert->bindParam(':productcode',   $arr_product_code[$i]);
+        $insert->bindParam(':invid', $invoice_id);
+        $insert->bindParam(':productid', $arr_product_id[$i]);
+        $insert->bindParam(':productcode', $arr_product_code[$i]);
         $insert->bindParam(':productname', $arr_product_name[$i]);
         $insert->bindParam(':qty', $arr_product_qty[$i]);
         $insert->bindParam(':productunit', $arr_product_unit[$i]);
-        $insert->bindParam(':price',  $arr_product_price[$i]);
-        $insert->bindParam(':total',   $arr_product_total[$i]);
-        $insert->bindParam(':item_profit',   $arr_item_profit[$i]);
-        $insert->bindParam(':orderdate',  $order_date);
+        $insert->bindParam(':price', $arr_product_price[$i]);
+        $insert->bindParam(':total', $arr_product_total[$i]);
+        $insert->bindParam(':item_profit', $arr_item_profit[$i]);
+        $insert->bindParam(':orderdate', $order_date);
 
         $insert->execute();
 
 
         //Handling credit limit
-        if (!empty($customer_no)) {
-          $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE credit_balance > 0 AND customer_no = '$customer_no' AND status = 'Unpaid'");
-          $select->execute();
+        //if (!empty($customer_no)) {
+        $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE credit_balance > 0 AND customer_no = '$customer_no' AND status = 'Unpaid'");
+        $select->execute();
 
-          if ($select->rowCount() > 0) {
+        if ($select->rowCount() > 0) {
+        } else {
+          $credit_amount_ = $pdo->prepare("SELECT sum(sale_profit) as credit_amount FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
+          $credit_amount_->execute();
+          $row = $credit_amount_->fetch(PDO::FETCH_OBJ);
+          $credit_amount = $row->credit_amount;
+
+          //Check if credit record exists in tbl_credit_limit
+          $sel_credit = $pdo->prepare("SELECT * FROM tbl_credit_limit WHERE cust_no = '$customer_no'");
+          $sel_credit->execute();
+          if ($sel_credit->rowCount() > 0) {
+            $update = $pdo->prepare("UPDATE tbl_credit_limit SET credit_amount=:credit_amount WHERE cust_no=:cust_no");
+            $update->bindParam(':credit_amount', $credit_amount);
+            $update->bindParam(':cust_no', $customer_no);
+            $update->execute();
           } else {
-            $credit_amount_ = $pdo->prepare("SELECT sum(sale_profit) as credit_amount FROM tbl_invoice WHERE total > 0 AND customer_no = '$customer_no' AND (status = 'Cleared' || status = 'Paid') AND DATEDIFF(order_date, \"$date\") <= 30");
-            $credit_amount_->execute();
-            $row = $credit_amount_->fetch(PDO::FETCH_OBJ);
-            $credit_amount = $row->credit_amount;
-
-            //Check if credit record exists in tbl_credit_limit
-            $sel_credit = $pdo->prepare("SELECT * FROM tbl_credit_limit WHERE cust_no = '$customer_no'");
-            $sel_credit->execute();
-            if ($sel_credit->rowCount() > 0) {
-              $update = $pdo->prepare("UPDATE tbl_credit_limit SET credit_amount=:credit_amount WHERE cust_no=:cust_no");
-              $update->bindParam(':credit_amount', $credit_amount);
-              $update->bindParam(':cust_no', $customer_no);
-              $update->execute();
-            } else {
-              $cred_insert = $pdo->prepare("INSERT INTO tbl_credit_limit(`cust_no`, `credit_amount`)
+            $cred_insert = $pdo->prepare("INSERT INTO tbl_credit_limit(`cust_no`, `credit_amount`)
                   values(:cred_cust_no, :cred_cust_amount)");
 
-              $cred_insert->bindParam(':cred_cust_no',  $customer_no);
-              $cred_insert->bindParam(':cred_cust_amount',   $credit_amount);
-              $cred_insert->execute();
+            $cred_insert->bindParam(':cred_cust_no', $customer_no);
+            $cred_insert->bindParam(':cred_cust_amount', $credit_amount);
+            $cred_insert->execute();
 
-              session_start();
-            }
+            session_start();
           }
         }
+        // }
       }
       $proceed = 1;
       header('refresh:2;create_cash_sale');
+    } else {
+      echo "<script type='text/javascript'>
+                    jQuery(function validation(){
+                    swal('Warning', \"Invoice $invoice_id\", 'warning', {
+                    button: 'Continue',
+                        });
+                    });
+                    </script>";
     }
   }
 }
@@ -201,7 +212,8 @@ if (isset($_POST['save_order'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-user"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="cashier_name" value="<?php echo $_SESSION['username']; ?>" readonly>
+                <input type="text" class="form-control pull-right" name="cashier_name"
+                  value="<?php echo $_SESSION['username']; ?>" readonly>
               </div>
               <!-- /.input group -->
             </div>
@@ -213,7 +225,8 @@ if (isset($_POST['save_order'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="orderdate" value="<?php echo date("d-m-Y"); ?>" readonly data-date-format="yyyy-mm-dd">
+                <input type="text" class="form-control pull-right" name="orderdate" value="<?php echo date("d-m-Y"); ?>"
+                  readonly data-date-format="yyyy-mm-dd">
                 <!-- /.input group -->
               </div>
             </div>
@@ -225,7 +238,8 @@ if (isset($_POST['save_order'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-clock-o"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="timeorder" value="<?php echo date('H:i') ?>" readonly>
+                <input type="text" class="form-control pull-right" name="timeorder" value="<?php echo date('H:i') ?>"
+                  readonly>
               </div>
               <!-- /.input group -->
             </div>
@@ -242,7 +256,8 @@ if (isset($_POST['save_order'])) {
                   <th>Quantity</th>
                   <th>Total</th>
                   <th>
-                    <button title="Add" type="button" name="addOrder" class="btn btn-success btn-sm btn_addOrder" required><span>
+                    <button title="Add" type="button" name="addOrder" class="btn btn-success btn-sm btn_addOrder"
+                      required><span>
                         <i class="fa fa-plus"></i>
                       </span></button>
                   </th>
@@ -269,7 +284,8 @@ if (isset($_POST['save_order'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="customer_no" id="customer_no" placeholder="Enter customer number">
+                <input type="text" class="form-control pull-right" name="customer_no" id="customer_no"
+                  placeholder="Enter customer number">
               </div>
               <!-- /.input group -->
             </div>
@@ -296,7 +312,8 @@ if (isset($_POST['save_order'])) {
                     <div class="input-group-addon">
                       <span>ksh</span>
                     </div>
-                    <input type="hidden" class="form-control pull-right" name="net_profit" id="net_profit" required readonly>
+                    <input type="hidden" class="form-control pull-right" name="net_profit" id="net_profit" required
+                      readonly>
                   </div>
                 </div>
               </div>
@@ -316,7 +333,7 @@ if (isset($_POST['save_order'])) {
               <label>Cash Balance</label>
               <div class="input-group">
                 <div class="input-group-addon">
-                  <span>ksh <?php echo $_SESSION['invoice_id']; ?></span>
+                  <span>ksh <?php echo $_SESSION['invoice_id'] ?? ''; ?></span>
                 </div>
                 <input type="text" class="form-control pull-right" name="due" id="due" required readonly>
               </div>
@@ -352,12 +369,12 @@ if (isset($_POST['save_order'])) {
     radioClass: 'iradio_minimal-blue'
   })
 
-  $(document).ready(function() {
-    $(document).on('click', '.btn_addOrder', function() {
+  $(document).ready(function () {
+    $(document).on('click', '.btn_addOrder', function () {
       var html = '';
       html += '<tr>';
       html += '<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-      html += '<td><select id="" class="form-control productid" name="productid[]" style="width:250px;" required><option value="">--Select Product--</option><?php                                                                                                                                                        echo fill_product($pdo) ?></select></td>';
+      html += '<td><select id="" class="form-control productid" name="productid[]" style="width:250px;" required><option value="">--Select Product--</option><?php echo fill_product($pdo) ?></select></td>';
 
       html += '<td><input  type="number" min="1" class="form-control quantity_product" style="width:80px;" name="quantity[]" required></td>';
       html += '<td><input type="text" class="form-control producttotal" style="width:100px;" name="producttotal[]" readonly></td>';
@@ -371,7 +388,7 @@ if (isset($_POST['save_order'])) {
 
       $('#myOrder').append(html);
 
-      $('.productid').on('change', function(e) {
+      $('.productid').on('change', function (e) {
         $("#paid").val("");
 
         var productid = this.value;
@@ -382,7 +399,7 @@ if (isset($_POST['save_order'])) {
           data: {
             id: productid
           },
-          success: function(data) {
+          success: function (data) {
             //console.log(data);
             /*let totals_ = $(".quantity_product").val() * $(".productprice").val();
             let profit_ = $(".quantity_product").val() * $(".productprofit").val();
@@ -398,7 +415,7 @@ if (isset($_POST['save_order'])) {
             tr.find(".quantity_product").val(0);
             tr.find(".producttotal").val(roundNum(tr.find(".quantity_product").val() * tr.find(".productprice").val(), 2));
             tr.find(".profit_").val(roundNum(tr.find(".quantity_product").val() * tr.find(".productprofit").val(), 2));
-            
+
             let paid = $("#paid").val();
             calculate(paid);
           }
@@ -408,8 +425,8 @@ if (isset($_POST['save_order'])) {
       // Initialize select2
       var placeholder = "&#xf002 Select a place";
       $(".productid").select2({
-          placeholder: 'Search product...',
-        }
+        placeholder: 'Search product...',
+      }
 
       );
 
@@ -419,14 +436,14 @@ if (isset($_POST['save_order'])) {
 
 
 
-    $(document).on('click', '.btn-remove', function() {
+    $(document).on('click', '.btn-remove', function () {
       $(this).closest('tr').remove();
       let paid = $("#paid").val();
       calculate(paid);
-     
+
     })
 
-    $("#myOrder").delegate(".quantity_product", "keyup change", function() {
+    $("#myOrder").delegate(".quantity_product", "keyup change", function () {
       $("#paid").val("");
       let paid = $("#paid").val();
 
@@ -467,12 +484,12 @@ if (isset($_POST['save_order'])) {
       let net_profit = 0;
       paid = paid;
 
-      $(".producttotal").each(function() {
+      $(".producttotal").each(function () {
         net_total = net_total + ($(this).val() * 1);
         //net_total_ = roundNum(net_total, 2)
       })
 
-      $(".profit_").each(function() {
+      $(".profit_").each(function () {
         net_profit = net_profit + ($(this).val() * 1);
         //net_profit_ = roundNum(net_profit, 2);
       })
@@ -488,11 +505,11 @@ if (isset($_POST['save_order'])) {
     //   $("#total").val(net_total);
     // })
 
-    $("#paid").change(function() {
+    $("#paid").change(function () {
       let totals = $("#total").val();
       let paid = $(this).val();
       if ((parseFloat(paid)) < (parseFloat(totals))) {
-        swal("Warning", 'Cash received must be greater or equal to sale total', "warning");
+        // swal("Warning", 'Cash received must be greater or equal to sale total', "warning");
       } else {
         calculate(paid);
       }
@@ -502,7 +519,7 @@ if (isset($_POST['save_order'])) {
       return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals).toFixed(decimals);
     }
 
-    function saleValidate(){
+    function saleValidate() {
       let totals = $("#total").val();
       let paid = $("#paid").val();
       if ((parseFloat(paid)) < (parseFloat(totals))) {

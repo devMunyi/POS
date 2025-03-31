@@ -3,6 +3,10 @@ session_start();
 include_once 'db/connect_db.inc';
 include_once 'php_functions/functions.php';
 
+function generateSixDigitNumber() {
+    return mt_rand(100000, 999999);
+}
+
 if ($_SESSION['username'] == "") {
     header('location:index');
 } else {
@@ -14,7 +18,8 @@ if ($_SESSION['username'] == "") {
 }
 
 if (isset($_POST['add_product'])) {
-    $code = $_POST['product_code'];
+    // $code = $_POST['product_code'];
+    $code = generateSixDigitNumber();
     $product = $_POST['product_name'];
     $category = $_POST['category'];
     $purchase = $_POST['purchase_price'];
@@ -26,7 +31,7 @@ if (isset($_POST['add_product'])) {
     $desc = $_POST['description'];
     $product_img = "";
 
-    if (isset($_POST['product_code'])) {
+    if (isset($code)) {
         $select = $pdo->prepare("SELECT product_code FROM tbl_product WHERE product_code='$code'");
         $select->execute();
 
@@ -123,6 +128,8 @@ if (isset($_POST['add_product'])) {
                                                     });
                                                 });
                                                 </script>';
+
+
                                 } else {
                                     echo '<script type="text/javascript">
                                                 jQuery(function validation(){
@@ -240,9 +247,9 @@ if (isset($_POST['add_product'])) {
             <form action="" method="POST" name="form_product" enctype="multipart/form-data" autocomplete="off">
                 <div class="box-body">
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="">Product Code</label><br>
-                            <input type="text" class="form-control" name="product_code" maxlength="6">
+                            <input type="text" class="form-control" name="product_code" value="<?php echo generateSixDigitNumber(); ?>" maxlength="6">
                         </div>
                         <div class="form-group">
                             <label for="">Product Name</label>
